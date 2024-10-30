@@ -7,6 +7,8 @@
 
 - [Link to repo](https://github.com/borchand/Red-Scare)
 
+- [Link to Overleaf ](https://www.overleaf.com/project/67223c5d16737d416959d718)
+
 ## Set up env
 Create env
 ```bash
