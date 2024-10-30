@@ -5,6 +5,8 @@
 
 - [red scare thore](https://github.com/thorehusfeldt/algdes-labs/tree/master/red-scare)
 
+- [Link to repo](https://github.com/borchand/Red-Scare)
+
 ## Set up env
 Create env
 ```bash
