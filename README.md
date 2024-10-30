@@ -1,6 +1,6 @@
 # Red-Scare
 
-## Link
+## Links
 - [Report docs](https://drive.google.com/drive/folders/1W_EWitnYJpkVWnakoz5EF27qoRUI0tSa?usp=drive_link)
 
 
