@@ -1,17 +1,36 @@
-from Utils.GraphComponents import Node, Edge
-import json
-
+from Utils.GraphComponents import Node, Edge, Graph
 class BaseRead:
+
+    """
+    Summary: 
+        This is base class from reading in the files.
+        This class contains utility methods
+    
+    Methods:
+        <b>printNodes</b>: Print each node
+        <b>printEdges</b>: Print each edge
+        <b>getEdgeList</b>: returns the edgeTupleList
+
+
+    Variables
+        <b>nodes (list<Node>)</b>: List of nodes
+        <b>edges (list<Edge>)</b>: List of edges
+        <b>edgeTupleList (list<tuple(u, v)>)</b>: List of edges as tuple (used for networkx)
+    """
 
     def __init__(self) -> None:
         self.nodes = []
         self.edges = []
         self.edgeTupleList = []
+        self.is_directed = None
 
     def printNodes(self):
         """
         Prints each node
         """
+        if self.nodes is []:
+            raise Exception("No data: Base class can not be used on its own. Use ReadFile or ReadInput")
+        
         for node in self.nodes:
             print(node)  
     
@@ -19,11 +38,21 @@ class BaseRead:
         """
         Prints each edge
         """
+        if self.edges is []:
+            raise Exception("No data: Base class can not be used on its own. Use ReadFile or ReadInput")
         for edge in self.edges:
             print(edge)
     
     def getEdgeList(self) -> list :
+        if self.edgeTupleList is []:
+            raise Exception("No data: Base class can not be used on its own. Use ReadFile or ReadInput")
+
         return self.edgeTupleList
+    
+    def toGraph(self) -> Graph:
+        if self.is_directed is None:
+            raise Exception("No data: Base class can not be used on its own. Use ReadFile or ReadInput")
+        return Graph(self.nodes, self.edgeTupleList, self.is_directed)
     
     def __str__(self) -> str:
         self.printNodes()
@@ -34,10 +63,29 @@ class BaseRead:
 
 class ReadFile(BaseRead):
 
-    def __init__(self, path: str = "", readFile: bool = True) -> None:
+    """
+    Summary: 
+    
+    This class can be used to read in graph data from a file path
+
+    Methods:
+        <b>read_file</b>: Reads the input from a file path (read_file is called in contructor)
+        <b>printNodes</b>: Print each node
+        <b>printEdges</b>: Print each edge
+        <b>getEdgeList</b>: returns the edgeTupleList
+
+    Variables
+        <b>nodes (list<Node>)</b>: List of nodes
+        <b>edges (list<Edge>)</b>: List of edges
+        <b>edgeTupleList (list<tuple(u, v)>)</b>: List of edges as tuple (used for networkx)
+        <b>s</b>: Start node
+        <b>t</b>: End node
+        <b>r</b>: Cardinality of reds
+    """
+
+    def __init__(self, path: str) -> None:
         super().__init__()
-        if readFile:
-            self.read_file(path)
+        self.read_file(path)
 
     def read_file(self, path: str):
 
@@ -58,21 +106,11 @@ class ReadFile(BaseRead):
     def __str__(self) -> str:
         return super().__str__() 
 
-class ReadFileFromJson(ReadFile):
-    def __init__(self, fileName):
-        super.__init__(self, False)
-        with open('files.json', 'r') as convert_file: 
-            d = json.loads(convert_file.read())
-        super().read_file(d[fileName])
-    
-    def __str__(self) -> str:
-        return super().__str__()
-
 class ReadInput(BaseRead): 
     
     """
     Methods:
-        <b>read_input<b>: Reads the input file (is called in contructor)
+        <b>read_input</b>: Reads the input file (is called in contructor)
         <b>printNodes</b>: Print each node
         <b>printEdges</b>: Print each edge
         <b>getEdgeList</b>: returns the edgeTupleList

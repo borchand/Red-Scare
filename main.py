@@ -6,11 +6,11 @@ def main()-> None:
     i = ReadInput()
     print(i)
 
-    edgeList = i.edgeTupleList
-    graph = Graph(i.nodes, edgeList, i.is_directed)
+    # edgeList = i.edgeTupleList
+    # graph = Graph(i.nodes, edgeList, i.is_directed)
     
-    nx.draw(graph.nxGraph)
+    # nx.draw(graph.nxGraph)
 
-    print(graph.nxGraph.edges)
+    # print(graph.nxGraph.edges)
 if __name__ == "__main__":
     main()
