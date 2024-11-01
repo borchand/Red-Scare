@@ -1,3 +1,20 @@
+import networkx as nx
+
+class Graph:
+
+    def __init__(self, nodes: list, edges: list, is_directed: bool) -> None:
+        
+        if (is_directed):
+            self.nxGraph :nx.DiGraph = nx.from_edgelist(edges, create_using=nx.DiGraph)
+        else:
+            self.nxGraph :nx.Graph = nx.from_edgelist(edges)
+        
+        self.Nodes = nodes
+        self.Edges = edges
+        
+
+    
+
 class Node:
     """
     Reads in a node.
@@ -32,10 +49,13 @@ class Edge:
     """
     def __init__(self, edge: str) -> None:
         edge_splitted = edge.split("->") if ">" in edge else edge.split("--")
-        self.u = edge_splitted[0]
-        self.v = edge_splitted[1]
+        self.u = edge_splitted[0].strip()
+        self.v = edge_splitted[1].strip()
         self.is_directed = ">" in edge ## ->
-    
+
+    def toTuple(self) -> tuple:
+        return (self.u, self.v)
+
     def __str__(self) -> str:
         s = "->" if self.is_directed else "--"
         return f"Edge: {self.u} {s} {self.v}"
