@@ -9,6 +9,9 @@
 
 - [Link to Overleaf ](https://www.overleaf.com/project/67223c5d16737d416959d718)
 
+## Read data
+Examples on how to read data can be found in [example.ipynb](example.ipynb)
+
 ## Set up env
 Create env
 ```bash
