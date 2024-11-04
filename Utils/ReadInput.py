@@ -19,8 +19,8 @@ class BaseRead:
     """
 
     def __init__(self) -> None:
-        self.nodes = []
-        self.edges = []
+        self.nodes: list[Node] = []
+        self.edges: list[Edge] = []
         self.edgeTupleList = []
         self.is_directed = None
 
@@ -54,6 +54,12 @@ class BaseRead:
             raise Exception("No data: Base class can not be used on its own. Use ReadFile or ReadInput")
         return Graph(self.nodes, self.edgeTupleList, self.is_directed)
     
+    def getNodeFromName(self, name: str) -> Node:
+        for node in self.nodes:
+            if node.node == name:
+                return node
+        return None
+
     def __str__(self) -> str:
         self.printNodes()
         print()
