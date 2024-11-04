@@ -5,7 +5,7 @@ import networkx as nx
 def main()-> None:
     i = ReadInput()
     print(i)
-
+    print('hello world')
     # edgeList = i.edgeTupleList
     # graph = Graph(i.nodes, edgeList, i.is_directed)
     
