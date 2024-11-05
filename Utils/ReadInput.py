@@ -85,12 +85,14 @@ class ReadFile(BaseRead):
 
     def __init__(self, path: str) -> None:
         super().__init__()
+        self.num_nodes = 0 # NIZP addition
         self.read_file(path)
 
     def read_file(self, path: str):
 
         with open(path) as file:
             n, m, self.r = map(int, file.readline().split())
+            self.num_nodes = n # NIZP addition
             self.s, self.t = file.readline().split()
             for _ in range(n):
                 node = Node(file.readline().strip())
