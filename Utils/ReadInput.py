@@ -96,12 +96,14 @@ class ReadFile(BaseRead):
                 node = Node(file.readline().strip())
                 self.nodes.append(node)
             
-            for _ in range(m):
-                edge = Edge(file.readline().strip())
-                self.edges.append(edge)
-                self.edgeTupleList.append(edge.toTuple())
-        
-        self.is_directed = edge.is_directed
+            if m > 0:  # Only try to set is_directed if there are edges
+                for _ in range(m):
+                    edge = Edge(file.readline().strip())
+                    self.edges.append(edge)
+                    self.edgeTupleList.append(edge.toTuple())
+                self.is_directed = edge.is_directed
+            else:
+                self.is_directed = False  # Default to undirected if no edges
     
     def __str__(self) -> str:
         return super().__str__() 
@@ -141,13 +143,15 @@ class ReadInput(BaseRead):
             node = Node(input().strip())
             self.nodes.append(node)
         
-        # Read edges
-        for _ in range(m):
-            edge = Edge(input().strip())
-            self.edges.append(edge)
-            self.edgeTupleList.append(edge.toTuple())
-        
-        self.is_directed = edge.is_directed
+                # Read edges
+        if m > 0:  # Only try to set is_directed if there are edges
+            for _ in range(m):
+                edge = Edge(input().strip())
+                self.edges.append(edge)
+                self.edgeTupleList.append(edge.toTuple())
+            self.is_directed = edge.is_directed
+        else:
+            self.is_directed = False
         
     def __str__(self) -> str:
         return super().__str__()

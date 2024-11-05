@@ -18,6 +18,16 @@ def get_path(parent_dict, s, t, final_was_red):
     return list(reversed(path))
 
 def has_alternating_path(graph: nx.Graph, red_nodes: dict, s: str, t: str) -> bool:
+    # Check if start and end nodes exist in the graph
+    if s not in graph.nodes() or t not in graph.nodes():
+        print(f"\nError: Start node '{s}' or end node '{t}' not in graph!")
+        return False
+        
+    # Check if start and end nodes exist in red_nodes dictionary
+    if s not in red_nodes or t not in red_nodes:
+        print(f"\nError: Start node '{s}' or end node '{t}' not in red_nodes dictionary!")
+        return False
+
     queue = deque()
     queue.append((s, True))
     queue.append((s, False))
@@ -57,6 +67,11 @@ def has_alternating_path(graph: nx.Graph, red_nodes: dict, s: str, t: str) -> bo
             
         # Look at neighbors
         for neighbor in graph.neighbors(current):
+            # Check if neighbor exists in red_nodes dictionary
+            if neighbor not in red_nodes:
+                print(f"Warning: Neighbor {neighbor} not in red_nodes dictionary, skipping")
+                continue
+                
             print(f"Considering neighbor {neighbor} (is_red={red_nodes[neighbor]})")
             if (neighbor, red_nodes[current]) not in visited:
                 queue.append((neighbor, red_nodes[current]))
@@ -67,21 +82,37 @@ def has_alternating_path(graph: nx.Graph, red_nodes: dict, s: str, t: str) -> bo
     print("\nNo alternating path found!")
     return False
 
-def main()-> None:
-    i = ReadInput()
-    graph = i.toGraph().nxGraph
-    red_nodes = {node.node: node.is_red for node in i.nodes}
-    
-    result = has_alternating_path(graph, red_nodes, i.s, i.t)
-    print(f"\nAlternating path exists: {result}")
-    
-    # Visualize
-    plt.figure(figsize=(10,10))
-    pos = nx.spring_layout(graph)
-    color_map = ['red' if red_nodes[node] else 'lightblue' for node in graph.nodes()]
-    nx.draw(graph, pos, node_color=color_map, with_labels=True, node_size=500)
-    plt.title(f"Graph (Red nodes marked in red)\nAlternating path exists: {result}")
-    plt.show()
+def main() -> None:
+    try:
+        i = ReadInput()
+        graph = i.toGraph().nxGraph
+        
+        # Create dictionary of red nodes, ensuring node names match graph nodes
+        red_nodes = {}
+        for node in i.nodes:
+            # Clean up node name to match graph representation
+            clean_node = node.node.strip()
+            red_nodes[clean_node] = node.is_red
+        
+        print("\nNodes in graph:", list(graph.nodes()))
+        print("Start node:", i.s)
+        print("End node:", i.t)
+        print("Red nodes:", {k: v for k, v in red_nodes.items() if v})
+        
+        result = has_alternating_path(graph, red_nodes, i.s, i.t)
+        print(f"\nAlternating path exists: {result}")
+        
+        # Visualize
+        plt.figure(figsize=(10,10))
+        pos = nx.spring_layout(graph)
+        color_map = ['red' if red_nodes.get(node, False) else 'lightblue' for node in graph.nodes()]
+        nx.draw(graph, pos, node_color=color_map, with_labels=True, node_size=500)
+        plt.title(f"Graph (Red nodes marked in red)\nAlternating path exists: {result}")
+        plt.show()
+        
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        raise
 
 if __name__ == "__main__":
     main()
