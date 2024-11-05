@@ -1,58 +1,9 @@
-from Utils.ReadInput import ReadInput, ReadFile, BaseRead
-from Utils.GraphComponents import Graph
+from Utils.ReadInput import ReadFile
 import Utils.data_files as files
-import networkx as nx
-from collections import deque
 import time
 import os
-
-def get_path(parent_dict, s, t, final_was_red):
-    """Helper function to reconstruct path from parent dictionary"""
-    path = []
-    current = t
-    was_red = final_was_red
-    
-    while current is not None:
-        path.append(current)
-        current, was_red = parent_dict.get((current, was_red), (None, None))
-    
-    return list(reversed(path))
-
-def has_alternating_path(graph: nx.Graph, red_nodes: dict, s: str, t: str) -> bool:
-    # Check if start and end nodes exist
-    if s not in graph.nodes() or t not in graph.nodes() or s not in red_nodes or t not in red_nodes:
-        return False
-
-    queue = deque()
-    queue.append((s, True))
-    queue.append((s, False))
-    
-    visited = set()
-    parent = {}
-    
-    while queue:
-        current, prev_was_red = queue.popleft()
-        
-        if (current, prev_was_red) in visited:
-            continue
-            
-        visited.add((current, prev_was_red))
-
-        if current == t:
-            return True
-            
-        if red_nodes[current] == prev_was_red:
-            continue
-            
-        for neighbor in graph.neighbors(current):
-            if neighbor not in red_nodes:
-                continue
-                
-            if (neighbor, red_nodes[current]) not in visited:
-                queue.append((neighbor, red_nodes[current]))
-                parent[(neighbor, red_nodes[current])] = (current, prev_was_red)
-    
-    return False
+from alternate import has_alternating_path
+import networkx as nx
 
 def run_test_case(file_path: str) -> tuple:
     """
@@ -67,9 +18,12 @@ def run_test_case(file_path: str) -> tuple:
         graph = i.toGraph().nxGraph
         
         # Create dictionary of red nodes
-        red_nodes = {node.node.strip(): node.is_red for node in i.nodes}
+        red_nodes = {}
+        for node in i.nodes:
+            clean_node = node.node.strip()
+            red_nodes[clean_node] = node.is_red
         
-        # Run the algorithm
+        # Run the algorithm with print statements disabled
         result = has_alternating_path(graph, red_nodes, i.s, i.t)
         
         execution_time = time.time() - start_time
