@@ -1,3 +1,4 @@
+from matplotlib import pyplot as plt
 import networkx as nx
 
 class Node:
@@ -19,6 +20,9 @@ class Node:
     def __str__(self) -> str:
         s = "red" if self.is_red else "black"
         return f"Node: {self.node} is {s}"
+    
+    def __repr__(self) -> str:
+        return self.__str__()
 
 class Edge:
     """
@@ -32,27 +36,62 @@ class Edge:
             <b>v (str)</b> to node
             <b>is_directed (bool)</b> If `edge` contains ">" it is directed
     """
-    def __init__(self, edge: str) -> None:
-        edge_splitted = edge.split("->") if ">" in edge else edge.split("--")
-        self.u = edge_splitted[0].strip()
-        self.v = edge_splitted[1].strip()
-        self.is_directed = ">" in edge ## ->
+    def __init__(self, u:  Node, v: Node, is_directed : bool) -> None:
+        self.u = u
+        self.v = v
+        self.is_directed = is_directed
 
-    def toTuple(self) -> tuple:
+    def toTuple(self) -> tuple[Node, Node]:
         return (self.u, self.v)
 
     def __str__(self) -> str:
         s = "->" if self.is_directed else "--"
         return f"Edge: {self.u} {s} {self.v}"
+    
+    def __repr__(self) -> str:
+        return self.__str__()
 
 class Graph:
 
-    def __init__(self, nodes: list[Node], edges: list[tuple], is_directed: bool) -> None:
-        
-        if (is_directed):
-            self.nxGraph :nx.DiGraph = nx.from_edgelist(edges, create_using=nx.DiGraph)
+    def __init__(self, nodes: list[Node], edges: list[tuple[Node, Node]], is_directed: bool) -> None:
+        self.nodes = nodes
+        self.edges = edges
+        self.is_directed = is_directed
+        if (self.is_directed):
+            self.nxGraph :nx.DiGraph = nx.from_edgelist(self.edges, create_using=nx.DiGraph)
         else:
-            self.nxGraph :nx.Graph = nx.from_edgelist(edges)
+            self.nxGraph :nx.Graph = nx.from_edgelist(self.edges)
         
-        self.Nodes = nodes
-        self.Edges = edges
+    def __str__(self) -> str:
+        return f"Nodes: {self.nodes}\nEdges: {self.edges}"
+
+class WeightedGraph():
+    def __init__(self, nodes: list[Node], edges: list[tuple[Node, Node]], is_directed: bool, red_weight: int, black_weight: int) -> None:
+
+        self.nodes = nodes
+        self.edges = edges
+        self.is_directed = is_directed
+        self.red_weight = red_weight
+        self.black_weight = black_weight
+
+        if self.is_directed:
+            # directed graph - we add weight to the edges
+            self.nxGraph = nx.DiGraph()
+
+            for edge in self.edges:
+                u, v = edge
+                self.nxGraph.add_edge(u, v, weight = self.red_weight if v.is_red else self.black_weight)
+        else:
+            # undirected graph - we add weights in both directions for each edge
+            self.nxGraph = nx.DiGraph()
+
+            for edge in self.edges:
+                u, v = edge                
+                self.nxGraph.add_edge(u, v, weight = self.red_weight if v.is_red else self.black_weight)
+                self.nxGraph.add_edge(v, u, weight = self.black_weight if u.is_red else self.red_weight)
+    
+    def draw(self):
+        colors = ["red" if n.is_red else "black" for n in self.nxGraph.nodes]
+
+        nx.draw(self.nxGraph, with_labels=False, node_color=colors)
+        plt.show()
