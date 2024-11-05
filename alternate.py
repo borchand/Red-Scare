@@ -5,13 +5,26 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from collections import deque
 
+def get_path(parent_dict, s, t, final_was_red):
+    """Helper function to reconstruct path from parent dictionary"""
+    path = []
+    current = t
+    was_red = final_was_red
+    
+    while current is not None:
+        path.append(current)
+        current, was_red = parent_dict.get((current, was_red), (None, None))
+    
+    return list(reversed(path))
+
 def has_alternating_path(graph: nx.Graph, red_nodes: dict, s: str, t: str) -> bool:
     queue = deque()
     queue.append((s, True))
     queue.append((s, False))
     
     visited = set()
-
+    # Dictionary to store parent nodes and their red/non-red state
+    parent = {}
     
     print("\n=== BFS Exploration ===")
     while queue:
@@ -27,12 +40,15 @@ def has_alternating_path(graph: nx.Graph, red_nodes: dict, s: str, t: str) -> bo
             
         visited.add((current, prev_was_red))
         print(f"Visited states: {visited}")
-        print(current)
-        print(prev_was_red)
-        print(visited)
 
         if current == t:
             print("Found target!")
+            # Reconstruct and print the path
+            path = get_path(parent, s, t, prev_was_red)
+            print("\nFound alternating path:")
+            print(" -> ".join(path))
+            print("\nNode colors along path:")
+            print(" -> ".join(['red' if red_nodes[node] else 'non-red' for node in path]))
             return True
             
         if red_nodes[current] == prev_was_red:
@@ -44,8 +60,11 @@ def has_alternating_path(graph: nx.Graph, red_nodes: dict, s: str, t: str) -> bo
             print(f"Considering neighbor {neighbor} (is_red={red_nodes[neighbor]})")
             if (neighbor, red_nodes[current]) not in visited:
                 queue.append((neighbor, red_nodes[current]))
+                # Store the parent information
+                parent[(neighbor, red_nodes[current])] = (current, prev_was_red)
                 print(f"Added {neighbor} to queue")
     
+    print("\nNo alternating path found!")
     return False
 
 def main()-> None:
