@@ -32,5 +32,5 @@ class Tasks:
 
         try:
             return nx.dijkstra_path_length(G, self.data.s, self.data.t, weight='weight')
-        except nx.NodeNotFound or nx.NetworkXNoPath:
+        except (nx.NodeNotFound,  nx.NetworkXNoPath):
             return -1
