@@ -12,7 +12,7 @@ class Tasks:
         self.path = path
         self.data = ReadFile(path)
 
-    def few(self, draw : bool) -> int:
+    def few(self, draw : bool = False) -> int:
         """
         Return the minimum number of red vertices on any path from s
         to t. To be precise, let P be the set of s, t-paths and let r(p) denote
