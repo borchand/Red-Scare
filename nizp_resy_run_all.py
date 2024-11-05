@@ -2,7 +2,7 @@ from Utils.ReadInput import ReadFile
 import Utils.data_files as files
 import time
 import os
-from alternate import has_alternating_path
+from nizp_resy_alternate import has_alternating_path
 import networkx as nx
 
 def run_test_case(file_path: str) -> tuple:
