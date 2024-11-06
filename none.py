@@ -5,10 +5,10 @@ import networkx as nx
 
 def none(graph, source, sink):
 
-    for node in graph.Nodes:
+    for node in graph.nodes:
         if node.is_red:
             # print("red node: ", node)
-            graph.nxGraph.remove_node(node.node)
+            graph.nxGraph.remove_node(node)
 
     try:
         # print(f'source: {source}')
