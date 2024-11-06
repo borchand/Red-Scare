@@ -1,5 +1,7 @@
 # Red-Scare
 
+## Python version >=3.9
+
 ## Links
 - [Report docs](https://drive.google.com/drive/folders/1W_EWitnYJpkVWnakoz5EF27qoRUI0tSa?usp=drive_link)
 
@@ -27,11 +29,13 @@ deactivate
 ```
 
 ## Install requirements
+This is used to install all the required packages from the requirements file
 ```bash
 pip install -r requirements.txt
 ```
 
-## Update requirements
+## Update requirements file
+This is used to update the requirements file with the current packages.
 ```bash
 pip freeze > requirements.txt
 ```
