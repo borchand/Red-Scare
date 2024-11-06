@@ -81,7 +81,7 @@ def solve(i: ReadInput):
     red_nodes = set()
     for node in i.nodes:
         if node.is_red:
-            red_nodes.add(node.node)
+            red_nodes.add(node)
 
 
     # Case 1: Directed Acyclic Graph (DAG) -> Topological Sort
