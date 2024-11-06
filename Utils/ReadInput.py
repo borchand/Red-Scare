@@ -1,4 +1,4 @@
-from Utils.GraphComponents import Node, Edge, Graph
+from Utils.GraphComponents import Node, Edge, Graph, WeightedGraph
 class BaseRead:
 
     """
@@ -19,8 +19,8 @@ class BaseRead:
     """
 
     def __init__(self) -> None:
-        self.nodes = []
-        self.edges = []
+        self.nodes: list[Node] = []
+        self.edges: list[Edge] = []
         self.edgeTupleList = []
         self.is_directed = None
 
@@ -54,6 +54,18 @@ class BaseRead:
             raise Exception("No data: Base class can not be used on its own. Use ReadFile or ReadInput")
         return Graph(self.nodes, self.edgeTupleList, self.is_directed)
     
+    def toWeightedGraph(self, red_weight: int, black_weight) -> WeightedGraph:
+        if self.is_directed is None:
+            raise Exception("No data: Base class can not be used on its own. Use ReadFile or ReadInput")
+        
+        return WeightedGraph(self.nodes, self.edgeTupleList, self.is_directed, red_weight, black_weight)
+
+    def getNodeFromName(self, name: str) -> Node:
+        for node in self.nodes:
+            if node.node == name:
+                return node
+        return None
+
     def __str__(self) -> str:
         self.printNodes()
         print()
@@ -92,23 +104,50 @@ class ReadFile(BaseRead):
 
         with open(path) as file:
             n, m, self.r = map(int, file.readline().split())
+
             self.num_nodes = n # NIZP addition
-            self.s, self.t = file.readline().split()
+
+
+
+            sStr, tStr = file.readline().split()
+
             for _ in range(n):
                 node = Node(file.readline().strip())
                 self.nodes.append(node)
             
-            if m > 0:  # Only try to set is_directed if there are edges
-                for _ in range(m):
-                    edge = Edge(file.readline().strip())
-                    self.edges.append(edge)
-                    self.edgeTupleList.append(edge.toTuple())
-                self.is_directed = edge.is_directed
-            else:
-                self.is_directed = False  # Default to undirected if no edges
+            # Get start and end node after reading all nodes
+            self.s = self.getNodeFromName(sStr)
+            self.t = self.getNodeFromName(tStr)
+            
+            if m == 0: 
+              self.is_directed = False  # Default to undirected if no edges
+              return
+              
+            for _ in range(m):
+                # Read edge
+                edgeStr = file.readline().strip()
+                # Split edge
+                edge_splitted = edgeStr.split("->") if ">" in edgeStr else edgeStr.split("--")
+                # Get nodes
+                u = self.getNodeFromName(edge_splitted[0].strip())
+                v = self.getNodeFromName(edge_splitted[1].strip())
+                # Check if directed
+                self.is_directed = ">" in edgeStr ## -> is directed   
+                # Create edge
+                edge = Edge(u, v, self.is_directed) 
+                # Append to list
+                self.edges.append(edge)
+                # Append to tuple list
+                self.edgeTupleList.append(edge.toTuple())
+
+            self.is_directed = edge.is_directed
+
     
     def __str__(self) -> str:
         return super().__str__() 
+    
+    def __repr__(self) -> str:
+        return self.__str__()
 
 class ReadInput(BaseRead): 
     
@@ -138,24 +177,45 @@ class ReadInput(BaseRead):
         """
 
         n, m, self.r = map(int, input().split())
-        self.s, self.t = input().split()
+        sStr, tStr = input().split()
 
         # Read nodes
         for _ in range(n):
             node = Node(input().strip())
             self.nodes.append(node)
+
+        # Get start and end node after reading all nodes
+        self.s = self.getNodeFromName(sStr)
+        self.t = self.getNodeFromName(tStr)
         
-                # Read edges
-        if m > 0:  # Only try to set is_directed if there are edges
-            for _ in range(m):
-                edge = Edge(input().strip())
-                self.edges.append(edge)
-                self.edgeTupleList.append(edge.toTuple())
-            self.is_directed = edge.is_directed
-        else:
+         # Read edges
+        if m == 0:
             self.is_directed = False
+            return
+          
+        # Only try to set is_directed if there are edges
+          for _ in range(m):
+            # Read edge
+            edgeStr = input().strip()
+            # Split edge
+            edge_splitted = edgeStr.split("->") if ">" in edgeStr else edgeStr.split("--")
+            # Get nodes
+            u = self.getNodeFromName(edge_splitted[0].strip())
+            v = self.getNodeFromName(edge_splitted[1].strip())
+            # Check if directed
+            self.is_directed = ">" in edgeStr ## -> is directed   
+            # Create edge
+            edge = Edge(u, v, self.is_directed) 
+            # Append to list
+            self.edges.append(edge)
+            # Append to tuple list
+            self.edgeTupleList.append(edge.toTuple())
+          self.is_directed = edge.is_directed
+
         
     def __str__(self) -> str:
         return super().__str__()
 
+    def __repr__(self) -> str:
+        return self.__str__()
     
