@@ -97,12 +97,17 @@ class ReadFile(BaseRead):
 
     def __init__(self, path: str) -> None:
         super().__init__()
+        self.num_nodes = 0 # NIZP addition
         self.read_file(path)
 
     def read_file(self, path: str):
 
         with open(path) as file:
             n, m, self.r = map(int, file.readline().split())
+
+            self.num_nodes = n # NIZP addition
+
+
 
             sStr, tStr = file.readline().split()
 
@@ -114,6 +119,10 @@ class ReadFile(BaseRead):
             self.s = self.getNodeFromName(sStr)
             self.t = self.getNodeFromName(tStr)
             
+            if m == 0: 
+              self.is_directed = False  # Default to undirected if no edges
+              return
+              
             for _ in range(m):
                 # Read edge
                 edgeStr = file.readline().strip()
@@ -130,8 +139,9 @@ class ReadFile(BaseRead):
                 self.edges.append(edge)
                 # Append to tuple list
                 self.edgeTupleList.append(edge.toTuple())
-        
-        self.is_directed = edge.is_directed
+
+            self.is_directed = edge.is_directed
+
     
     def __str__(self) -> str:
         return super().__str__() 
@@ -178,8 +188,13 @@ class ReadInput(BaseRead):
         self.s = self.getNodeFromName(sStr)
         self.t = self.getNodeFromName(tStr)
         
-        # Read edges
-        for _ in range(m):
+         # Read edges
+        if m == 0:
+            self.is_directed = False
+            return
+          
+        # Only try to set is_directed if there are edges
+          for _ in range(m):
             # Read edge
             edgeStr = input().strip()
             # Split edge
@@ -195,8 +210,8 @@ class ReadInput(BaseRead):
             self.edges.append(edge)
             # Append to tuple list
             self.edgeTupleList.append(edge.toTuple())
-        
-        self.is_directed = edge.is_directed
+          self.is_directed = edge.is_directed
+
         
     def __str__(self) -> str:
         return super().__str__()
