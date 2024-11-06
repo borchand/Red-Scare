@@ -6,7 +6,7 @@ class Node:
     Reads in a node.
 
     Inputs
-        <b>edge (str)</b>: A string with the node and "*" if it is red
+        <b>node (str)</b>: A string with the node and "*" if it is red
 
 
     Variables
@@ -92,6 +92,12 @@ class WeightedGraph():
     
     def draw(self):
         colors = ["red" if n.is_red else "black" for n in self.nxGraph.nodes]
-
-        nx.draw(self.nxGraph, with_labels=False, node_color=colors)
+        
+        layout = nx.spring_layout(self.nxGraph)
+        
+        if(len(self.nodes)< 20):
+            layout = nx.circular_layout(self.nxGraph)
+        
+        nx.draw(self.nxGraph, with_labels=False, node_color=colors, pos=layout)
+        
         plt.show()
