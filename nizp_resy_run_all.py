@@ -21,7 +21,7 @@ def run_test_case(file_path: str) -> tuple:
         # Create dictionary of red nodes
         red_nodes = {}
         for node in i.nodes:
-            clean_node = node.node.strip()
+            clean_node = node.strip()
             red_nodes[clean_node] = node.is_red
         
         # Run the algorithm with print statements disabled
