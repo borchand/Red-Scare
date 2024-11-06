@@ -164,5 +164,5 @@ Total tests: 154
 Paths found: 78
 No paths found: 76
 Errors: 0
-Total execution time: 6.97 seconds
-Average execution time: 0.0453 seconds
+Total execution time: 2.91 seconds
+Average execution time: 0.0189 seconds
