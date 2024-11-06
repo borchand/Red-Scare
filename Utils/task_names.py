@@ -1,0 +1,5 @@
+Task_Alternate='Alternate'
+Task_Few='Few'
+Task_Many='Many'
+Task_None='None'
+Task_Some='Some'
