@@ -2,6 +2,7 @@ from Utils.ReadInput import ReadFile
 from prettytable import PrettyTable
 import Utils.data_files as files
 import Utils.task_names as tasks_names
+import interruptingcow
 from tqdm import tqdm
 import networkx as nx
 import time
@@ -92,19 +93,24 @@ class RunTask:
             tasks = Tasks(filename)
             num_nodes = tasks.data.num_nodes
 
-            result = None
-            if self.task == tasks_names.Task_None:
-                result = tasks.none()
-            elif self.task == tasks_names.Task_Alternate:
-                result = tasks.alternate()
-            elif self.task == tasks_names.Task_Some:
-                result = tasks.some()
-            elif self.task == tasks_names.Task_Many:
-                result = tasks.many()
-            elif self.task == tasks_names.Task_Few:
-                result = tasks.few()
-            else:
-                raise Exception("Task not found")
+            try:
+                with interruptingcow.timeout(60 * 10, exception=RuntimeError):
+                    result = None
+                    if self.task == tasks_names.Task_None:
+                        result = tasks.none()
+                    elif self.task == tasks_names.Task_Alternate:
+                        result = tasks.alternate()
+                    elif self.task == tasks_names.Task_Some:
+                        result = tasks.some()
+                    elif self.task == tasks_names.Task_Many:
+                        result = tasks.many()
+                    elif self.task == tasks_names.Task_Few:
+                        result = tasks.few()
+                    else:
+                        raise Exception("Task not found")
+            except RuntimeError:
+                result = "Timeout"
+
 
             results.append((filename, num_nodes, result, time.time() - start_time))
 
