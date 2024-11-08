@@ -38,7 +38,17 @@ python main.py -t all
 ```
 
 ### Create output file
-By default the output variable is set to 't'. This means that the `results_output.txt` file will be created. If you want to disable this, you can change the `output` variable in the `main.py` file to 'f'.
+By default the output variable is set to 't'. This means that the `results_output.txt` file will be created. 
+
+```bash
+python main.py
+```
+or
+```bash
+python main.py -o t
+```
+
+If you want to disable this, you can change the `output` variable in the `main.py` file to 'f'.
 
 ```bash
 python main.py -o f
