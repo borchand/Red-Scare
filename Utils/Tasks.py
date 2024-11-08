@@ -130,11 +130,8 @@ class WriteOutput:
     """
         Summary:
             This class is used to write the output of the tasks to a text file based on the csv files in the results folder.
-            If there is no csv file for a task, we will run the task.
+            If there is no csv file for a task, we will write "Not run" as result.
             The output is saved in the results_output.txt file.
-
-            This means that you only need to use this class to run all the tasks and write the output to a text file.
-            But it is atviable to use the RunTask class to run a single task as some tasks may take a long time to run.
 
             If you wish to overwrite the csv files, you can delete the csv files in the results folder or run the RunTask class.
         
@@ -155,19 +152,27 @@ class WriteOutput:
         for task in self.tasks_to_run:
             print(f"Writing output for task: {task}")
             # check if file exists
-            if not os.path.exists(f"results/{task}_results.csv"):
-                RunTask(task)
-            df = pd.read_csv(f"results/{task}_results.csv")
+            if os.path.exists(f"results/{task}_results.csv"):
+                df = pd.read_csv(f"results/{task}_results.csv")
 
-            # add data to dict
-            self.data[task] = {}
+                # add data to dict
+                self.data[task] = {}
+                self.data[f"{task}-Num nodes"] = {}
 
-            for _, row in df.iterrows():
-                self.data[task][row["filename"]] = row["result"]
+                for _, row in df.iterrows():
+                    self.data[task][row["filename"]] = row["result"]
+                    self.data[f"{task}-Num nodes"][row["filename"]] = row["num_nodes"]
 
-            self.data[f"{task}-Execution Time"] = df["execution_time"].sum()
+                self.data[f"{task}-Execution Time"] = df["execution_time"].sum()
 
-            self.data[f"{task}-Num nodes"] = df["num_nodes"][0]
+            else:
+                self.data[task] = {}
+
+                for filename in self.networkDataFiles:
+                    self.data[task][filename] = "Not run"
+                
+                self.data[f"{task}-Execution Time"] = 0
+                self.data[f"{task}-Num nodes"] = 0
 
         self.create_output()   
         self.write_output()     
@@ -185,7 +190,7 @@ class WriteOutput:
         self.summaryTable.field_names = ["Total tests", "Total Execution Time", "Average Execution Time"]
 
         if total_time > 60:
-            total_minutes = total_time / 60
+            total_minutes = total_time // 60
             total_sec = total_time % 60
             total_time_txt = f"{total_minutes:.0f} minutes {total_sec:.2f} seconds"
         else:
@@ -194,7 +199,7 @@ class WriteOutput:
         avg_time = total_time / len(self.networkDataFiles)
 
         if avg_time > 60:
-            avg_minutes = avg_time / 60
+            avg_minutes = avg_time // 60
             avg_sec = avg_time % 60
             avg_time_txt = f"{avg_minutes:.0f} minutes {avg_sec:.2f} seconds"
         else:
@@ -208,7 +213,14 @@ class WriteOutput:
         self.table.align["Instance name"] = "l"
 
         for filename in self.data[self.tasks_to_run[0]].keys():
-            self.table.add_row([filename, self.data[f"{self.tasks_to_run[0]}-Num nodes"], self.data[self.tasks_to_run[0]][filename], self.data[self.tasks_to_run[1]][filename], self.data[self.tasks_to_run[2]][filename], self.data[self.tasks_to_run[3]][filename], self.data[self.tasks_to_run[4]][filename]])
+            # get number of nodes from the first task that is run
+            num_nodes = [self.data[f"{task}-Num nodes"][filename] for task in self.tasks_to_run if self.data[task][filename] != "Not run"]
+            if num_nodes:
+                num_nodes = num_nodes[0]
+            else:
+                num_nodes = 0
+
+            self.table.add_row([filename, num_nodes, self.data[self.tasks_to_run[0]][filename], self.data[self.tasks_to_run[1]][filename], self.data[self.tasks_to_run[2]][filename], self.data[self.tasks_to_run[3]][filename], self.data[self.tasks_to_run[4]][filename]])
 
     def write_output(self) -> None:
         with open('results_output.txt', 'w') as f:
