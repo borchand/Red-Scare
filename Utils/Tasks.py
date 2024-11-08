@@ -93,15 +93,15 @@ class RunTask:
             num_nodes = tasks.data.num_nodes
 
             result = None
-            if self.task == "None":
+            if self.task == "none":
                 result = tasks.none()
-            elif self.task == "Alternate":
+            elif self.task == "alternate":
                 result = tasks.alternate()
-            elif self.task == "Some":
+            elif self.task == "some":
                 result = tasks.some()
-            elif self.task == "Many":
+            elif self.task == "many":
                 result = tasks.many()
-            elif self.task == "Few":
+            elif self.task == "few":
                 result = tasks.few()
             else:
                 raise Exception("Task not found")
