@@ -173,7 +173,24 @@ class WriteOutput:
         self.summaryTable = PrettyTable()
         self.summaryTable.align = "r"
         self.summaryTable.field_names = ["Total tests", "Total Execution Time", "Average Execution Time"]
-        self.summaryTable.add_row([len(self.networkDataFiles), f"{total_time:.2f} seconds", f"{total_time/len(self.networkDataFiles):.4f} seconds"])
+
+        if total_time > 60:
+            total_minutes = total_time / 60
+            total_sec = total_time % 60
+            total_time_txt = f"{total_minutes:.0f} minutes {total_sec:.2f} seconds"
+        else:
+            total_time_txt = f"{total_time:.2f} seconds"
+
+        avg_time = total_time / len(self.networkDataFiles)
+
+        if avg_time > 60:
+            avg_minutes = avg_time / 60
+            avg_sec = avg_time % 60
+            avg_time_txt = f"{avg_minutes:.0f} minutes {avg_sec:.2f} seconds"
+        else:
+            avg_time_txt = f"{avg_time:.2f} seconds"
+
+        self.summaryTable.add_row([len(self.networkDataFiles), f"{total_time_txt}", f"{avg_time_txt}"])
 
         self.table = PrettyTable()
         self.table.align = "r"
