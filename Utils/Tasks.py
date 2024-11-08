@@ -65,17 +65,20 @@ class RunTask:
     Inputs:
         <b>task (str)</b>: The task to run (None, Alternate, Some, Many, Few)
         You can use the tasks_names.py file to get the task names
+        <b>min_before_interrupt (int)</b>: The time in minutes before the task is interrupted (default is 10 minutes)
 
     Variables:
         <b>task (str)</b>: The task to run
         <b>networkDataFiles (list)</b>: List of network data
+        <b>min_before_interrupt (int)</b>: The time in minutes before the task is interrupted (default is 10 minutes)
 
     Methods:
         <b>run</b>: Run the task (this is in the constructor)
 
     """
-    def __init__(self, task: str) -> None:
+    def __init__(self, task: str, min_before_interrupt = 10) -> None:
         self.networkDataFiles = [getattr(files, attr) for attr in dir(files) if not attr.startswith('__')]
+        self.min_before_interrupt = min_before_interrupt
 
         self.task = task
         self.run()
@@ -94,7 +97,8 @@ class RunTask:
             num_nodes = tasks.data.num_nodes
 
             try:
-                with interruptingcow.timeout(60 * 10, exception=RuntimeError):
+                # This will interrupt the task if it takes more than self.min_before_interrupt minutes
+                with interruptingcow.timeout(60 * self.min_before_interrupt, exception=RuntimeError):
                     result = None
                     if self.task == tasks_names.Task_None:
                         result = tasks.none()
