@@ -9,6 +9,7 @@ decorator==5.1.1
 executing==2.1.0
 fonttools==4.54.1
 importlib_metadata==8.5.0
+interruptingcow==0.8
 ipykernel==6.29.5
 ipython==8.12.3
 jedi==0.19.1
