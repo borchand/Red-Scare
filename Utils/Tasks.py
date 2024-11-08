@@ -62,6 +62,8 @@ class RunTask:
         The results are saved in a csv file in the results folder.
         This will overwrite the csv file if it already exists.
 
+        There is a timeout of 10 minutes for each task. If the task takes more than 10 minutes, it will be interrupted and the result will be "Timeout".
+
     Inputs:
         <b>task (str)</b>: The task to run (None, Alternate, Some, Many, Few)
         You can use the tasks_names.py file to get the task names
