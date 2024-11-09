@@ -101,7 +101,7 @@ def solve_many(i: BaseRead, verbose: bool = False) -> int:
             return max_red_count if max_red_count != -1 else -1
 
     except (nx.NodeNotFound,  nx.NetworkXNoPath, nx.exception.NetworkXPointlessConcept):
-            return -1
+        return -1
 
 def main()-> None:
     i = ReadInput()
