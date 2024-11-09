@@ -2,6 +2,7 @@ from Utils.ReadInput import ReadFile
 from prettytable import PrettyTable
 import Utils.data_files as files
 import Utils.task_names as tasks_names
+from Utils.many import solve_many 
 import interruptingcow
 from tqdm import tqdm
 import networkx as nx
@@ -29,8 +30,8 @@ class Tasks:
     def some(self):
         pass
 
-    def many(self):
-        pass
+    def many(self) -> int:
+        return solve_many(self.data)
 
     def few(self, draw : bool = False) -> int:
         """

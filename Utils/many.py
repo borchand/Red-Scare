@@ -1,5 +1,5 @@
 from Utils.GraphComponents import Graph, Node
-from Utils.ReadInput import ReadInput
+from Utils.ReadInput import ReadInput, ReadFile, BaseRead
 import networkx as nx
 from collections import defaultdict
 
@@ -39,7 +39,7 @@ def bellman(G: Graph, start: Node, target: Node, red_nodes: list[Node])-> int:
     return abs(distance[target])
 
 
-def solve_many(i: ReadInput, verbose: bool = False) -> int:
+def solve_many(i: BaseRead, verbose: bool = False) -> int:
     G = i.toGraph()
     source, sink = i.s, i.t 
 
