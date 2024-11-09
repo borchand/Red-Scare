@@ -2,7 +2,7 @@ from Utils.ReadInput import ReadFile
 from prettytable import PrettyTable
 import Utils.data_files as files
 import Utils.task_names as tasks_names
-from Utils.many import solve_many 
+from many import solve_many 
 import interruptingcow
 from tqdm import tqdm
 import networkx as nx
