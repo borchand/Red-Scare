@@ -54,8 +54,9 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
     try:
         # Case 1: Directed Acyclic Graph (DAG) -> Topological Sort
         if nx.is_directed_acyclic_graph(G.nxGraph):
-            print("Case 1: Directed Acyclic Graph (DAG). Using topological sort to solve")
-            print("--------------------------------------------------------------")
+            if verbose:
+                print("Case 1: Directed Acyclic Graph (DAG). Using topological sort to solve")
+                print("--------------------------------------------------------------")
             # Topological sort and track red nodes on paths
             top_order = list(nx.topological_sort(G.nxGraph))
             max_red_count = {node: 0 for node in G.nxGraph.nodes} # returns nodes as string, let's stick at that. 
@@ -70,8 +71,9 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
             return max_red_count[sink] if max_red_count[sink] > 0 else -1, np_hard
 
         elif nx.is_tree(G.nxGraph):
-            print("Case 2: Undirected graph and no cycles.")
-            print("--------------------------------------------------------------")
+            if verbose:
+                print("Case 2: Undirected graph and no cycles.")
+                print("--------------------------------------------------------------")
 
             path = nx.shortest_path(G.nxGraph, source=source, target=sink)
             return sum(1 for node in path if node in red_nodes), np_hard
@@ -80,18 +82,21 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
         # Case 2: Undirected graph with no red cycles -> Bellman-Ford
         elif G.nxGraph.is_directed():
             try:
-                print("Case 3: Directed graph and no red cycles. Using Bellman Ford")
-                print("--------------------------------------------------------------")
+                if verbose:
+                    print("Case 3: Directed graph and no red cycles. Using Bellman Ford")
+                    print("--------------------------------------------------------------")
                 return bellman(G, source, sink, red_nodes=red_nodes), np_hard
             
             except ValueError:
-                print('Negative cycle detected cannot perform Bellman-Ford')
+                if verbose:
+                    print('Negative cycle detected cannot perform Bellman-Ford')
                 pass 
 
         # Case 3: NP-hard, complete search
         else:
-            print("Case 4: NP-hard case, have to do complete search")
-            print("--------------------------------------------------------------")
+            if verbose:
+                print("Case 4: NP-hard case, have to do complete search")
+                print("--------------------------------------------------------------")
             min_before_interrupt = 1
             np_hard = True
             try:
