@@ -2,7 +2,7 @@ from Utils.ReadInput import ReadInput, ReadFile, BaseRead
 from Utils.GraphComponents import Graph
 import Utils.data_files as files
 import networkx as nx
-from many import solve, bellman
+from many import solve_many, bellman
 from pathlib import Path
 from interruptingcow import timeout
 
@@ -64,7 +64,7 @@ def someFlowPathRed(readFile, ogGraph, source, sink, reds):
 
   # If the graph is directed acyclic, use many
   if nx.is_directed_acyclic_graph(ogGraph):
-    if solve(input) > 0:
+    if solve_many(input) > 0:
       return True
     else:
       return False
