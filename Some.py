@@ -57,7 +57,7 @@ This becomes NP-hard for directed graphs, unless the first vertice is a red one,
 and there exists a path between it and the sink.
 '''
 
-def someFlowPathRed(readFile, ogGraph, source, sink, reds):
+def someFlowPathRed(readFile, ogGraph, source, sink, reds) -> tuple[bool, bool]:
   try: nx.has_path(ogGraph, source, sink)
   except nx.NodeNotFound:
     return False
@@ -65,14 +65,14 @@ def someFlowPathRed(readFile, ogGraph, source, sink, reds):
   # If the graph is directed acyclic, use many
   if nx.is_directed_acyclic_graph(ogGraph):
     if solve_many(input) > 0:
-      return True
+      return True, False
     else:
-      return False
+      return False, False
 
   # If the graph is directed cyclic, it's NP-hard
   elif nx.is_directed(ogGraph):
     print("NP-hard")
-    return False
+    return False, True
   
   # Otherwise, undirected
   else:
@@ -100,7 +100,7 @@ def someFlowPathRed(readFile, ogGraph, source, sink, reds):
         try:
           #print(redNode + ': ' + str(nx.maximum_flow(thisGraph, 'superSource', 'superSink', capacity='capacity')))
           if nx.maximum_flow(thisGraph, 'superSource', 'superSink')[0] == 2:
-            return True
+            return True, False
           else:
             thisGraph.remove_edge('superSource', redNode)
             thisGraph.remove_edge(source, 'superSink')
@@ -114,8 +114,7 @@ def someFlowPathRed(readFile, ogGraph, source, sink, reds):
           continue
         # If a red node is not connected to anything, do nothing
 
-    else:
-      return False
+  return False, False
 
 '''
 Run the flow function on every file in the data folder
