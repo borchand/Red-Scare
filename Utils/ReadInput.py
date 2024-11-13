@@ -139,8 +139,13 @@ class ReadFile(BaseRead):
                 self.edges.append(edge)
                 # Append to tuple list
                 self.edgeTupleList.append(edge.toTuple())
+<<<<<<< HEAD
 
             self.is_directed = edge.is_directed
+=======
+        
+                self.is_directed = edge.is_directed
+>>>>>>> a36c69e (Added to methods for Some)
     
     def __str__(self) -> str:
         return super().__str__() 
@@ -209,8 +214,13 @@ class ReadInput(BaseRead):
             self.edges.append(edge)
             # Append to tuple list
             self.edgeTupleList.append(edge.toTuple())
+<<<<<<< HEAD
 
         self.is_directed = edge.is_directed
+=======
+        
+            self.is_directed = edge.is_directed
+>>>>>>> a36c69e (Added to methods for Some)
         
     def __str__(self) -> str:
         return super().__str__()
