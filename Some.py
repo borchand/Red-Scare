@@ -20,7 +20,7 @@ def readInputSome(path):
   gnx = graph.nxGraph
 
   # List of red nodes
-  reds = [node.node for node in graph.Nodes if node.is_red]
+  reds = [node.node for node in graph.nodes if node.is_red]
 
   return readFile, gnx, source, sink, reds
 
