@@ -4,7 +4,7 @@ import Utils.data_files as files
 import networkx as nx
 from Utils.ReadInput import ReadInput
 
-def none(graph: Graph, source, sink):
+def none(graph: Graph, source, sink) -> int:
 
     """
     Find shortest path without any red nodes.
