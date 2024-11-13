@@ -37,56 +37,56 @@ def has_alternating_path(graph: nx.Graph, color_of_nodes: dict, s: str, t: str) 
     # Dictionary to store parent nodes and their red/non-red state
     parent = {}
     
-    print("\n=== BFS Exploration ===")
+    #print("\n=== BFS Exploration ===")
     while queue:
-        print(f"\nThis is the {queue}")
+        #print(f"\nThis is the {queue}")
 
         current, prev_was_red = queue.popleft()
 
-        print(f"This is the {queue} now after popleft(), and we will look at node {current}")
+        #print(f"This is the {queue} now after popleft(), and we will look at node {current}")
 
         
         #Print current state
-        print(f"Node {current} is_red={color_of_nodes[current]}")
-        print(f"We came from a is_red={prev_was_red} node")
+        #print(f"Node {current} is_red={color_of_nodes[current]}")
+        #print(f"We came from a is_red={prev_was_red} node")
         
         if (current, prev_was_red) in visited:
-            print("State already visited, skipping")
+            #print("State already visited, skipping")
             continue
             
-        print(f"We add {current, prev_was_red} to the visited set") 
+        #print(f"We add {current, prev_was_red} to the visited set") 
         visited.add((current, prev_was_red))
-        print(f"Visited state is now: {visited}")
+        #print(f"Visited state is now: {visited}")
 
         if current == t:
-            print("Found target!")
+            #print("Found target!")
             # Reconstruct and print the path
             path = get_path(parent, s, t, prev_was_red)
-            print("\nFound alternating path:")
-            print(" -> ".join(path))
-            print("\nNode colors along path:")
-            print(" -> ".join(['red' if color_of_nodes[node] else 'non-red' for node in path]))
+            #print("\nFound alternating path:")
+            #print(" -> ".join(path))
+            #print("\nNode colors along path:")
+            #print(" -> ".join(['red' if color_of_nodes[node] else 'non-red' for node in path]))
             return True
             
         if color_of_nodes[current] == prev_was_red:
-            print(f"Unlucky, the node {current}'s color is_red={color_of_nodes[current]} is the same as the previous nodes that was visited (is_red={prev_was_red}), we skip")
+            #print(f"Unlucky, the node {current}'s color is_red={color_of_nodes[current]} is the same as the previous nodes that was visited (is_red={prev_was_red}), we skip")
             continue
 
-        print(f"Lucky, the node {current}'s color is_red={color_of_nodes[current]} is not the same as the previous nodes that was visited (is_red={prev_was_red}), we will look at the next neighbours")
+        #print(f"Lucky, the node {current}'s color is_red={color_of_nodes[current]} is not the same as the previous nodes that was visited (is_red={prev_was_red}), we will look at the next neighbours")
             
         # Look at neighbors
         for neighbor in graph.neighbors(current):
             # Check if neighbor exists in color_of_nodes dictionary
             if neighbor not in color_of_nodes:
-                print(f"Warning: Neighbor {neighbor} not in color_of_nodes dictionary, skipping")
+                #print(f"Warning: Neighbor {neighbor} not in color_of_nodes dictionary, skipping")
                 continue
                 
-            print(f"Considering neighbor {neighbor} (is_red={color_of_nodes[neighbor]})")
+            #print(f"Considering neighbor {neighbor} (is_red={color_of_nodes[neighbor]})")
             if (neighbor, color_of_nodes[current]) not in visited:
                 queue.append((neighbor, color_of_nodes[current]))
                 # Store the parent information
                 parent[(neighbor, color_of_nodes[current])] = (current, prev_was_red)
-                print(f"Added {neighbor} to queue")
+                #print(f"Added {neighbor} to queue")
     
     print("\nNo alternating path found!")
     return False
