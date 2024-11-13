@@ -139,10 +139,6 @@ class ReadFile(BaseRead):
                 self.edges.append(edge)
                 # Append to tuple list
                 self.edgeTupleList.append(edge.toTuple())
-<<<<<<< HEAD
-
-            self.is_directed = edge.is_directed
-=======
         
                 self.is_directed = edge.is_directed
     
