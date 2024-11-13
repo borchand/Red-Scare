@@ -49,6 +49,8 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
     for node in i.nodes:
         if node.is_red:
             red_nodes.add(node)
+
+    np_hard = False
     try:
         # Case 1: Directed Acyclic Graph (DAG) -> Topological Sort
         if nx.is_directed_acyclic_graph(G.nxGraph):
@@ -65,14 +67,14 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
                     if max_red_count[neighbor] < max_red_count[node] + (1 if neighbor in red_nodes else 0):
                         max_red_count[neighbor] = max_red_count[node] + (1 if neighbor in red_nodes else 0)
             
-            return max_red_count[sink] if max_red_count[sink] > 0 else -1, False
+            return max_red_count[sink] if max_red_count[sink] > 0 else -1, np_hard
 
         elif nx.is_tree(G.nxGraph):
             print("Case 2: Undirected graph and no cycles.")
             print("--------------------------------------------------------------")
 
             path = nx.shortest_path(G.nxGraph, source=source, target=sink)
-            return sum(1 for node in path if node in red_nodes), False
+            return sum(1 for node in path if node in red_nodes), np_hard
             
 
         # Case 2: Undirected graph with no red cycles -> Bellman-Ford
@@ -80,7 +82,7 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
             try:
                 print("Case 3: Directed graph and no red cycles. Using Bellman Ford")
                 print("--------------------------------------------------------------")
-                return bellman(G, source, sink, red_nodes=red_nodes), False
+                return bellman(G, source, sink, red_nodes=red_nodes), np_hard
             
             except ValueError:
                 print('Negative cycle detected cannot perform Bellman-Ford')
@@ -91,6 +93,7 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
             print("Case 4: NP-hard case, have to do complete search")
             print("--------------------------------------------------------------")
             min_before_interrupt = 1
+            np_hard = True
             try:
                 # This will interrupt the task if it takes more than self.min_before_interrupt minutes
                 with interruptingcow.timeout(60 * min_before_interrupt, exception=RuntimeError):
@@ -102,12 +105,12 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
                         red_count = sum(1 for node in path if node in red_nodes)
                         max_red_count = max(max_red_count, red_count)
 
-                    return max_red_count if max_red_count != -1 else -1, True
+                    return max_red_count if max_red_count != -1 else -1, np_hard
             except RuntimeError:
-                return "Timeout"
+                return "Timeout", np_hard
 
     except (nx.NodeNotFound,  nx.NetworkXNoPath, nx.exception.NetworkXPointlessConcept):
-        return -1
+        return -1, np_hard
 
 def main()-> None:
     i = ReadInput()
