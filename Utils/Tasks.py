@@ -9,6 +9,9 @@ import time
 import pandas as pd
 import os
 
+
+from Some import someFlowPathRed, readInputSome
+
 class Tasks:
     """
     Summary:
@@ -27,7 +30,8 @@ class Tasks:
         pass
 
     def some(self):
-        pass
+        readFile, gnx, source, sink, reds = readInputSome(self.path)
+        someFlowPathRed(readFile, gnx, source, sink, reds)
 
     def many(self):
         pass

@@ -2,7 +2,6 @@ from Utils.ReadInput import ReadInput, ReadFile, BaseRead
 from Utils.GraphComponents import Graph
 import Utils.data_files as files
 import networkx as nx
-<<<<<<< HEAD
 from many import solve, bellman
 from pathlib import Path
 from interruptingcow import timeout
@@ -24,8 +23,6 @@ def readInputSome(path):
   reds = [node.node for node in graph.Nodes if node.is_red]
 
   return readFile, gnx, source, sink, reds
-=======
->>>>>>> a36c69e (Added to methods for Some)
 
 '''
 For each of the red vertices, find the shortest path
@@ -37,15 +34,9 @@ def someShortestPathRed(graph, source, sink, reds):
     try:
       # try a path from source to a red node
 
-<<<<<<< HEAD
       nx.shortest_path(graph, source, redNode)
       # try a path from red node to sink
       nx.shortest_path(graph, redNode, sink)
-=======
-      print(nx.shortest_path(graph, source, redNode))
-      # try a path from red node to sink
-      print(nx.shortest_path(graph, redNode, sink))
->>>>>>> a36c69e (Added to methods for Some)
       return True
 
     except nx.NetworkXNoPath:
@@ -65,7 +56,6 @@ In each iteration do the following:
 This becomes NP-hard for directed graphs, unless the first vertice is a red one,
 and there exists a path between it and the sink.
 '''
-<<<<<<< HEAD
 
 def someFlowPathRed(readFile, ogGraph, source, sink, reds):
   try: nx.has_path(ogGraph, source, sink)
@@ -74,7 +64,7 @@ def someFlowPathRed(readFile, ogGraph, source, sink, reds):
 
   # If the graph is directed acyclic, use many
   if nx.is_directed_acyclic_graph(ogGraph):
-    if many.solve(input) > 0:
+    if solve(input) > 0:
       return True
     else:
       return False
@@ -147,45 +137,3 @@ def main():
 
 if __name__ == "__main__":
   main()
-=======
-def someFlowPathRed(ogGraph, source, sink, reds):
-  thisGraph = nx.DiGraph()
-  # Add flow capacity 1 to all edges
-  for u, v in ogGraph.edges():
-    thisGraph.add_edge(u, v, capacity=1)
-  
-  # Add a superSource and a superSink
-  thisGraph.add_node('superSource')
-  thisGraph.add_node('superSink')
-  
-  for redNode in reds:
-    # Check if the rednode is in the graph
-    if redNode in thisGraph.nodes: 
-    # Add new superSource with flow capacity edge val=2 connected to red node
-      thisGraph.add_edge('superSource', redNode, capacity=2)
-
-      # Add new superSink with flow capacity edges val=1 connected to the original
-      thisGraph.add_edge(source, 'superSink', capacity=1)
-      thisGraph.add_edge(sink, 'superSink', capacity=1)
-
-      # Check if flow from superSource to superSink is equal to 2
-      try:
-        print(redNode + ': ' + str(nx.maximum_flow(thisGraph, 'superSource', 'superSink', capacity='capacity')))
-        if nx.maximum_flow(thisGraph, 'superSource', 'superSink')[0] == 2:
-          return True
-        else:
-          thisGraph.remove_edge('superSource', redNode)
-          thisGraph.remove_edge(source, 'superSink')
-          thisGraph.remove_edge(sink, 'superSink')
-
-      except nx.NetworkXUnfeasible:
-        # If the path wasn't there, remove the unneeded edges
-        thisGraph.remove_edge('superSource', redNode)
-        thisGraph.remove_edge(source, 'superSink')
-        thisGraph.remove_edge(sink, 'superSink')
-        continue
-      # If a red node is not connected to anything, do nothing
-
-  else:
-    return False
->>>>>>> a36c69e (Added to methods for Some)
