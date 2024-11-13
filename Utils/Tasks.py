@@ -36,9 +36,9 @@ class Tasks:
             color_of_nodes[node] = node.is_red
         return has_alternating_path(graph, color_of_nodes, self.data.s, self.data.t)
 
-    def some(self):
+    def some(self) -> tuple[bool, bool]:
         readFile, gnx, source, sink, reds = readInputSome(self.path)
-        someFlowPathRed(readFile, gnx, source, sink, reds)
+        return someFlowPathRed(readFile, gnx, source, sink, reds)
 
     def many(self) -> tuple[int, bool]:
         return solve_many(self.data)
@@ -116,7 +116,7 @@ class RunTask:
             elif self.task == tasks_names.Task_Alternate:
                 result = tasks.alternate()
             elif self.task == tasks_names.Task_Some:
-                result = tasks.some()
+                result, np_hard = tasks.some()
             elif self.task == tasks_names.Task_Many:
                 result, np_hard = tasks.many()
             elif self.task == tasks_names.Task_Few:
