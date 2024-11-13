@@ -4,6 +4,7 @@ import Utils.data_files as files
 import Utils.task_names as tasks_names
 from many import solve_many 
 import interruptingcow
+from nizp_resy_alternate import has_alternating_path
 from tqdm import tqdm
 import networkx as nx
 import time
@@ -24,8 +25,14 @@ class Tasks:
     def none(self):
         pass
 
-    def alternate(self):
-        pass
+    def alternate(self) -> bool:
+        graph = self.data.toGraph().nxGraph
+        # Create dictionary of red nodes, ensuring node names match graph nodes
+        color_of_nodes = {}
+        for node in self.data.nodes:
+            # Clean up node name to match graph representation
+            color_of_nodes[node] = node.is_red
+        return has_alternating_path(graph, color_of_nodes, self.data.s, self.data.t)
 
     def some(self):
         pass
