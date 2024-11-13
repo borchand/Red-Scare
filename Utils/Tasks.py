@@ -25,7 +25,7 @@ class Tasks:
         self.path = path
         self.data = ReadFile(path)
 
-    def none(self):
+    def none(self) -> int:
 
         """
         Find shortest path without any red nodes.
