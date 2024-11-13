@@ -104,7 +104,7 @@ def main() -> None:
             color_of_nodes[clean_node] = node.is_red
         
         result = has_alternating_path(graph, color_of_nodes, i.s, i.t)
-        print(f"\nAlternating path exists: {result}")
+        print(f"{result}")
         
         # Visualize
         plt.figure(figsize=(10,10))
@@ -112,7 +112,7 @@ def main() -> None:
         color_map = ['red' if color_of_nodes.get(node, False) else 'lightblue' for node in graph.nodes()]
         nx.draw(graph, pos, node_color=color_map, with_labels=True, node_size=500)
         plt.title(f"Graph (Red nodes marked in red)\nAlternating path exists: {result}")
-        plt.show()
+        #plt.show()
         
     except Exception as e:
         #print(f"An error occurred: {str(e)}")
