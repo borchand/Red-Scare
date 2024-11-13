@@ -3,7 +3,6 @@ from prettytable import PrettyTable
 import Utils.data_files as files
 import Utils.task_names as tasks_names
 from many import solve_many 
-import interruptingcow
 from nizp_resy_alternate import has_alternating_path
 from tqdm import tqdm
 import networkx as nx
@@ -41,7 +40,7 @@ class Tasks:
         readFile, gnx, source, sink, reds = readInputSome(self.path)
         someFlowPathRed(readFile, gnx, source, sink, reds)
 
-    def many(self) -> int:
+    def many(self) -> tuple[int, bool]:
         return solve_many(self.data)
 
     def few(self, draw : bool = False) -> int:
@@ -110,30 +109,27 @@ class RunTask:
             tasks = Tasks(filename)
             num_nodes = tasks.data.num_nodes
 
-            try:
-                # This will interrupt the task if it takes more than self.min_before_interrupt minutes
-                with interruptingcow.timeout(60 * self.min_before_interrupt, exception=RuntimeError):
-                    result = None
-                    if self.task == tasks_names.Task_None:
-                        result = tasks.none()
-                    elif self.task == tasks_names.Task_Alternate:
-                        result = tasks.alternate()
-                    elif self.task == tasks_names.Task_Some:
-                        result = tasks.some()
-                    elif self.task == tasks_names.Task_Many:
-                        result = tasks.many()
-                    elif self.task == tasks_names.Task_Few:
-                        result = tasks.few()
-                    else:
-                        raise Exception("Task not found")
-            except RuntimeError:
-                result = "Timeout"
+            result = None
+            np_hard = None
+            if self.task == tasks_names.Task_None:
+                result = tasks.none()
+            elif self.task == tasks_names.Task_Alternate:
+                result = tasks.alternate()
+            elif self.task == tasks_names.Task_Some:
+                result = tasks.some()
+            elif self.task == tasks_names.Task_Many:
+                result, np_hard = tasks.many()
+            elif self.task == tasks_names.Task_Few:
+                result = tasks.few()
+            else:
+                raise Exception("Task not found")
 
 
-            results.append((filename, num_nodes, result, time.time() - start_time))
+
+            results.append((filename, num_nodes, result, time.time() - start_time, np_hard))
 
         # create df
-        df = pd.DataFrame(results, columns=["filename", "num_nodes", "result", "execution_time"])
+        df = pd.DataFrame(results, columns=["filename", "num_nodes", "result", "execution_time", "np_hard"])
 
         # create folder if not exists
         if not os.path.exists("results"):
