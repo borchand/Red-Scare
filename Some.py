@@ -1,28 +1,10 @@
 from Utils.ReadInput import ReadInput, ReadFile, BaseRead
-from Utils.GraphComponents import Graph
+from Utils.GraphComponents import Graph, Node
 import Utils.data_files as files
 import networkx as nx
-from many import solve_many, bellman
+from many import solve_many
 from pathlib import Path
 from interruptingcow import timeout
-
-'''
-Get input
-'''
-def readInputSome(path):
-  # Read input
-  readFile = ReadFile(path)
-  source = readFile.s
-  sink = readFile.t
-
-  # Nx graph
-  graph = readFile.toGraph()
-  gnx = graph.nxGraph
-
-  # List of red nodes
-  reds = [node.node for node in graph.Nodes if node.is_red]
-
-  return readFile, gnx, source, sink, reds
 
 '''
 For each of the red vertices, find the shortest path
@@ -57,22 +39,29 @@ This becomes NP-hard for directed graphs, unless the first vertice is a red one,
 and there exists a path between it and the sink.
 '''
 
-def someFlowPathRed(readFile, ogGraph, source, sink, reds) -> tuple[bool, bool]:
+def someFlowPathRed(readFile: BaseRead, ogGraph: nx.Graph, source:Node, sink: Node, reds:list[Node]) -> tuple[bool, bool]:
+  np_hard = False
   try: nx.has_path(ogGraph, source, sink)
   except nx.NodeNotFound:
-    return False
+    return False, np_hard
 
   # If the graph is directed acyclic, use many
   if nx.is_directed_acyclic_graph(ogGraph):
-    if solve_many(readFile) > 0:
-      return True, False
+    result, np_hard = solve_many(readFile)
+    # if result is str
+    if type(result) == str:
+      return result, np_hard
+    
+    if result > 0:
+      return True, np_hard
     else:
-      return False, False
+      return False, np_hard
 
   # If the graph is directed cyclic, it's NP-hard
   elif nx.is_directed(ogGraph):
     print("NP-hard")
-    return False, True
+    np_hard = True
+    return False, np_hard
   
   # Otherwise, undirected
   else:
@@ -100,7 +89,7 @@ def someFlowPathRed(readFile, ogGraph, source, sink, reds) -> tuple[bool, bool]:
         try:
           #print(redNode + ': ' + str(nx.maximum_flow(thisGraph, 'superSource', 'superSink', capacity='capacity')))
           if nx.maximum_flow(thisGraph, 'superSource', 'superSink')[0] == 2:
-            return True, False
+            return True, np_hard
           else:
             thisGraph.remove_edge('superSource', redNode)
             thisGraph.remove_edge(source, 'superSink')
@@ -114,7 +103,7 @@ def someFlowPathRed(readFile, ogGraph, source, sink, reds) -> tuple[bool, bool]:
           continue
         # If a red node is not connected to anything, do nothing
 
-  return False, False
+  return False, np_hard
 
 '''
 Run the flow function on every file in the data folder
@@ -127,8 +116,11 @@ def main():
     if file.is_file():
       try:
         with timeout(10, exception=RuntimeError):
-          input, gnx, source, sink, reds = readInputSome(file)
-          print(someFlowPathRed(input, gnx, source, sink, reds))
+          data = ReadInput(file)
+          graph = data.toGraph()
+          reds = [node for node in graph.nodes if node.is_red]
+
+          print(someFlowPathRed(input, graph.nxGraph, data.s, data.t, reds))
           continue
       except RuntimeError: 
         print("didn't finish within 10 seconds")
