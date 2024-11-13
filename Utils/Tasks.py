@@ -206,7 +206,8 @@ class WriteOutput:
                 self.data[f"{task}-Num nodes"] = 0
 
         self.create_output()   
-        self.write_output()     
+        self.write_output()  
+        self.write_output_latex()   
 
     def create_output(self) -> None:
 
@@ -259,3 +260,9 @@ class WriteOutput:
             f.write(str(self.summaryTable))
             f.write("\nResults:\n")
             f.write(str(self.table))
+
+    def write_output_latex(self) -> None:
+        with open('results_output.tex', 'w') as f:
+            f.write(self.summaryTable.get_latex_string())
+            f.write("\n")
+            f.write(self.table.get_latex_string())
