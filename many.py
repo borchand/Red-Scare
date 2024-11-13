@@ -93,26 +93,25 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
                 pass 
 
         # Case 3: NP-hard, complete search
-        else:
-            if verbose:
-                print("Case 4: NP-hard case, have to do complete search")
-                print("--------------------------------------------------------------")
-            min_before_interrupt = 1
-            np_hard = True
-            try:
-                # This will interrupt the task if it takes more than self.min_before_interrupt minutes
-                with interruptingcow.timeout(60 * min_before_interrupt, exception=RuntimeError):
-                    # nx DFS 
-                    max_red_count = -1
-                    # Use dfs_edges to get paths from s, traverse each to count red nodes until t
-                    for path in nx.all_simple_paths(G.nxGraph, source=i.s, target=i.t):            
-                        # Count red nodes in the current path
-                        red_count = sum(1 for node in path if node in red_nodes)
-                        max_red_count = max(max_red_count, red_count)
+        if verbose:
+            print("Case 4: NP-hard case, have to do complete search")
+            print("--------------------------------------------------------------")
+        min_before_interrupt = 1
+        np_hard = True
+        try:
+            # This will interrupt the task if it takes more than self.min_before_interrupt minutes
+            with interruptingcow.timeout(60 * min_before_interrupt, exception=RuntimeError):
+                # nx DFS 
+                max_red_count = -1
+                # Use dfs_edges to get paths from s, traverse each to count red nodes until t
+                for path in nx.all_simple_paths(G.nxGraph, source=i.s, target=i.t):            
+                    # Count red nodes in the current path
+                    red_count = sum(1 for node in path if node in red_nodes)
+                    max_red_count = max(max_red_count, red_count)
 
-                    return max_red_count if max_red_count != -1 else -1, np_hard
-            except RuntimeError:
-                return "Timeout", np_hard
+                return max_red_count if max_red_count != -1 else -1, np_hard
+        except RuntimeError:
+            return "Timeout", np_hard
 
     except (nx.NodeNotFound,  nx.NetworkXNoPath, nx.exception.NetworkXPointlessConcept):
         return -1, np_hard

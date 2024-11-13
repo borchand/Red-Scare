@@ -82,7 +82,8 @@ class Tasks:
             weightedGraph.draw()
 
         try:
-            return nx.dijkstra_path_length(G, self.data.s, self.data.t, weight='weight')
+            # If the source is red we add 1 as we dont count the source in the path
+            return nx.dijkstra_path_length(G, self.data.s, self.data.t, weight='weight') + self.data.s.is_red
         except (nx.NodeNotFound,  nx.NetworkXNoPath):
             return -1
 
