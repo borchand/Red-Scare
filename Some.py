@@ -110,21 +110,12 @@ Run the flow function on every file in the data folder
 '''
 
 def main():
-  folder_path = Path('/content/data')
 
-  for file in folder_path.iterdir():
-    if file.is_file():
-      try:
-        with timeout(10, exception=RuntimeError):
-          data = ReadInput(file)
-          graph = data.toGraph()
-          reds = [node for node in graph.nodes if node.is_red]
+  data = ReadInput()
+  graph = data.toGraph()
+  reds = [node for node in graph.nodes if node.is_red]
 
-          print(someFlowPathRed(input, graph.nxGraph, data.s, data.t, reds))
-          continue
-      except RuntimeError: 
-        print("didn't finish within 10 seconds")
-      print(False)
+  print(someFlowPathRed(input, graph.nxGraph, data.s, data.t, reds))
 
 if __name__ == "__main__":
   main()

@@ -87,8 +87,9 @@ class WeightedGraph():
 
             for edge in self.edges:
                 u, v = edge                
+
                 self.nxGraph.add_edge(u, v, weight = self.red_weight if v.is_red else self.black_weight)
-                self.nxGraph.add_edge(v, u, weight = self.black_weight if u.is_red else self.red_weight)
+                self.nxGraph.add_edge(v, u, weight = self.red_weight if u.is_red else self.black_weight)
     
     def draw(self):
         colors = ["red" if n.is_red else "black" for n in self.nxGraph.nodes]
