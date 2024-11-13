@@ -25,17 +25,13 @@ def none(graph, source, sink):
         edge_tuple = []
         for node in edge:
             edge_tuple.append(node.node)
-        # print(edge_tuple)
         graph_edges.append(edge_tuple)
-    # print(f"graph edges: {graph_edges}")
+
 
     # Remove all red nodes from the graph
     for node in graph.nodes:
         if node.is_red:
-            # # print(graph.edges)
-            # print(f"source: {source.node}")
-            # print(f"sink: {sink.node}")
-            # print(f"s-t edge: {[source.node, sink.node]}")
+            # Check if there is a direct edge from s to t if so, dont remove them even if they are red
             if (node == source or node == sink) and [source.node, sink.node] in graph_edges:
                 continue
             else:
