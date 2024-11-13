@@ -4,7 +4,7 @@ import Utils.data_files as files
 import networkx as nx
 from Utils.ReadInput import ReadInput
 
-def none(graph, source, sink):
+def none(graph: Graph, source, sink):
 
     """
     Find shortest path without any red nodes.
@@ -34,7 +34,10 @@ def none(graph, source, sink):
             # Check if there is a direct edge from s to t if so, dont remove them even if they are red
             if (node == source or node == sink) and [source.node, sink.node] in graph_edges:
                 continue
-            else:
+            # print(" current node", node.node)
+            # print('nodes in the graph:', graph.nxGraph.nodes)
+            if node in graph.nxGraph.nodes:
+                # print(f"red node to remove: {node}")
                 graph.nxGraph.remove_node(node)
 
     # If exists, find the shortest path from s to t, return length, if no path -1
