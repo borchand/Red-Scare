@@ -3,12 +3,16 @@ from prettytable import PrettyTable
 from none import none
 import Utils.data_files as files
 import Utils.task_names as tasks_names
-import interruptingcow
+from many import solve_many 
+from nizp_resy_alternate import has_alternating_path
 from tqdm import tqdm
 import networkx as nx
 import time
 import pandas as pd
 import os
+
+
+from Some import someFlowPathRed, readInputSome
 
 class Tasks:
     """
@@ -41,14 +45,21 @@ class Tasks:
         t_node = self.data.t
         return none(graph, s_node, t_node)
 
-    def alternate(self):
-        pass
+    def alternate(self) -> bool:
+        graph = self.data.toGraph().nxGraph
+        # Create dictionary of red nodes, ensuring node names match graph nodes
+        color_of_nodes = {}
+        for node in self.data.nodes:
+            # Clean up node name to match graph representation
+            color_of_nodes[node] = node.is_red
+        return has_alternating_path(graph, color_of_nodes, self.data.s, self.data.t)
 
-    def some(self):
-        pass
+    def some(self) -> tuple[bool, bool]:
+        readFile, gnx, source, sink, reds = readInputSome(self.path)
+        return someFlowPathRed(readFile, gnx, source, sink, reds)
 
-    def many(self):
-        pass
+    def many(self) -> tuple[int, bool]:
+        return solve_many(self.data)
 
     def few(self, draw : bool = False) -> int:
         """
@@ -116,30 +127,27 @@ class RunTask:
             tasks = Tasks(filename)
             num_nodes = tasks.data.num_nodes
 
-            try:
-                # This will interrupt the task if it takes more than self.min_before_interrupt minutes
-                with interruptingcow.timeout(60 * self.min_before_interrupt, exception=RuntimeError):
-                    result = None
-                    if self.task == tasks_names.Task_None:
-                        result = tasks.none()
-                    elif self.task == tasks_names.Task_Alternate:
-                        result = tasks.alternate()
-                    elif self.task == tasks_names.Task_Some:
-                        result = tasks.some()
-                    elif self.task == tasks_names.Task_Many:
-                        result = tasks.many()
-                    elif self.task == tasks_names.Task_Few:
-                        result = tasks.few()
-                    else:
-                        raise Exception("Task not found")
-            except RuntimeError:
-                result = "Timeout"
+            result = None
+            np_hard = None
+            if self.task == tasks_names.Task_None:
+                result = tasks.none()
+            elif self.task == tasks_names.Task_Alternate:
+                result = tasks.alternate()
+            elif self.task == tasks_names.Task_Some:
+                result, np_hard = tasks.some()
+            elif self.task == tasks_names.Task_Many:
+                result, np_hard = tasks.many()
+            elif self.task == tasks_names.Task_Few:
+                result = tasks.few()
+            else:
+                raise Exception("Task not found")
 
 
-            results.append((filename, num_nodes, result, time.time() - start_time))
+
+            results.append((filename, num_nodes, result, time.time() - start_time, np_hard))
 
         # create df
-        df = pd.DataFrame(results, columns=["filename", "num_nodes", "result", "execution_time"])
+        df = pd.DataFrame(results, columns=["filename", "num_nodes", "result", "execution_time", "np_hard"])
 
         # create folder if not exists
         if not os.path.exists("results"):
