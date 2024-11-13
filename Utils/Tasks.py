@@ -11,7 +11,7 @@ import pandas as pd
 import os
 
 
-from Some import someFlowPathRed, readInputSome
+from Some import someFlowPathRed
 
 class Tasks:
     """
@@ -37,8 +37,10 @@ class Tasks:
         return has_alternating_path(graph, color_of_nodes, self.data.s, self.data.t)
 
     def some(self) -> tuple[bool, bool]:
-        readFile, gnx, source, sink, reds = readInputSome(self.path)
-        return someFlowPathRed(readFile, gnx, source, sink, reds)
+        graph = self.data.toGraph()
+        reds = [node.node for node in graph.nodes if node.is_red]
+
+        return someFlowPathRed(self.data, graph.nxGraph, self.data.s, self.data.t, reds)
 
     def many(self) -> tuple[int, bool]:
         return solve_many(self.data)
