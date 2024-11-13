@@ -19,10 +19,27 @@ def none(graph, source, sink):
     In G_ex, the answer is 3 (because of the path 0, 1, 2, 3.)
     """
 
+    # Create a list of edges, edge as a tuple of two nodes
+    graph_edges = []
+    for edge in graph.edges:
+        edge_tuple = []
+        for node in edge:
+            edge_tuple.append(node.node)
+        # print(edge_tuple)
+        graph_edges.append(edge_tuple)
+    # print(f"graph edges: {graph_edges}")
+
     # Remove all red nodes from the graph
     for node in graph.nodes:
-        if node.is_red and node != source and node != sink:
-            graph.nxGraph.remove_node(node)
+        if node.is_red:
+            # # print(graph.edges)
+            # print(f"source: {source.node}")
+            # print(f"sink: {sink.node}")
+            # print(f"s-t edge: {[source.node, sink.node]}")
+            if (node == source or node == sink) and [source.node, sink.node] in graph_edges:
+                continue
+            else:
+                graph.nxGraph.remove_node(node)
 
     # If exists, find the shortest path from s to t, return length, if no path -1
     try:
