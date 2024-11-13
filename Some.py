@@ -64,7 +64,7 @@ def someFlowPathRed(readFile, ogGraph, source, sink, reds):
 
   # If the graph is directed acyclic, use many
   if nx.is_directed_acyclic_graph(ogGraph):
-    if solve_many(input) > 0:
+    if solve_many(readFile) > 0:
       return True
     else:
       return False
