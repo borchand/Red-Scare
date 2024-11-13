@@ -21,7 +21,7 @@ def none(graph, source, sink):
 
     # Remove all red nodes from the graph
     for node in graph.nodes:
-        if node.is_red:
+        if node.is_red and node != source and node != sink:
             graph.nxGraph.remove_node(node)
 
     # If exists, find the shortest path from s to t, return length, if no path -1
@@ -32,7 +32,7 @@ def none(graph, source, sink):
         return -1
     
 if __name__ == "__main__":
-    
+
     data = ReadInput()
     graph = data.toGraph()
     s_node = data.s
