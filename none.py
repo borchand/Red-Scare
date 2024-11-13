@@ -19,20 +19,20 @@ def none(graph: Graph, source, sink) -> int:
     In G_ex, the answer is 3 (because of the path 0, 1, 2, 3.)
     """
 
-    # Create a list of edges, edge as a tuple of two nodes
-    graph_edges = []
-    for edge in graph.edges:
-        edge_tuple = []
-        for node in edge:
-            edge_tuple.append(node.node)
-        graph_edges.append(edge_tuple)
+    # # Create a list of edges, edge as a tuple of two nodes
+    # graph_edges = []
+    # for edge in graph.edges:
+    #     edge_tuple = []
+    #     for node in edge:
+    #         edge_tuple.append(node.node)
+    #     graph_edges.append(edge_tuple)
 
 
     # Remove all red nodes from the graph
     for node in graph.nodes:
         if node.is_red:
             # Check if there is a direct edge from s to t if so, dont remove them even if they are red
-            if (node == source or node == sink) and [source.node, sink.node] in graph_edges:
+            if node == source or node == sink:
                 continue
             if node in graph.nxGraph.nodes:
                 graph.nxGraph.remove_node(node)
