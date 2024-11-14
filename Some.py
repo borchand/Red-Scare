@@ -7,26 +7,6 @@ from pathlib import Path
 from interruptingcow import timeout
 
 '''
-For each of the red vertices, find the shortest path
-from the start to the vertice, and from the vertice
-to the end
-'''
-def someShortestPathRed(graph, source, sink, reds):
-  for redNode in reds:
-    try:
-      # try a path from source to a red node
-
-      nx.shortest_path(graph, source, redNode)
-      # try a path from red node to sink
-      nx.shortest_path(graph, redNode, sink)
-      return True
-
-    except nx.NetworkXNoPath:
-      continue
-  # If no path, return false
-  return False
-
-'''
 Iterate through the red nodes.
 
 In each iteration do the following:
