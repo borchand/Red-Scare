@@ -65,7 +65,6 @@ def someFlowPathRed(readFile: BaseRead, ogGraph: nx.Graph, source:Node, sink: No
   
   # Otherwise, undirected
   else:
-
     thisGraph = nx.Graph()
     # Add flow capacity 1 to all edges
     for u, v in ogGraph.edges():
