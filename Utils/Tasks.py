@@ -56,7 +56,7 @@ class Tasks:
 
     def some(self) -> tuple[bool, bool]:
         graph = self.data.toGraph()
-        reds = [node.node for node in graph.nodes if node.is_red]
+        reds = [node for node in graph.nodes if node.is_red]
 
         return someFlowPathRed(self.data, graph.nxGraph, self.data.s, self.data.t, reds)
 
