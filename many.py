@@ -49,7 +49,7 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
         if verbose:
             print("Case 3: NP-hard case, have to do complete search")
             print("--------------------------------------------------------------")
-        min_before_interrupt = 1
+        min_before_interrupt = 3
         np_hard = True
         try:
             # This will interrupt the task if it takes more than self.min_before_interrupt minutes
