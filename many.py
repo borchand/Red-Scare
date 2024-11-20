@@ -16,9 +16,8 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
 
     np_hard = False
     try:
-        if nx.has_path(G.nxGraph, source=source, target= sink):
+        if not nx.has_path(G.nxGraph, source=source, target= sink):
             return -1, False
-        
         
         # Case 1: Directed Acyclic Graph (DAG) -> Topological Sort
         elif nx.is_directed_acyclic_graph(G.nxGraph):
