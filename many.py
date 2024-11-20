@@ -42,23 +42,9 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
             path = nx.shortest_path(G.nxGraph, source=source, target=sink)
             return sum(1 for node in path if node in red_nodes), np_hard
             
-
-        # Case 2: Undirected graph with no red cycles -> Bellman-Ford
-        elif G.nxGraph.is_directed():
-            try:
-                if verbose:
-                    print("Case 3: Directed graph and no red cycles. Using Bellman Ford")
-                    print("--------------------------------------------------------------")
-                return bellman(G, source, sink, red_nodes=red_nodes), np_hard
-            
-            except ValueError:
-                if verbose:
-                    print('Negative cycle detected cannot perform Bellman-Ford')
-                pass 
-
         # Case 3: NP-hard, complete search
         if verbose:
-            print("Case 4: NP-hard case, have to do complete search")
+            print("Case 3: NP-hard case, have to do complete search")
             print("--------------------------------------------------------------")
         min_before_interrupt = 1
         np_hard = True
