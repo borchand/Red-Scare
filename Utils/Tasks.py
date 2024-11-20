@@ -291,7 +291,7 @@ class WriteOutput:
         fields_formated = "".join(fields_formated).replace("&", "", 1).replace("Result_", "").replace("#", "\#")
 
 
-        latexStr = latexStr.replace("\\begin{longtable}{lrlrrrl}", "\\begin{longtable}{lrlrrrl} \caption{"+ caption +"}\label{" + label + "} \\toprule " + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n" + fields_formated + "\\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{7}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
+        latexStr = latexStr.replace("\\begin{longtable}{lrlrrrl}", " \\begin{longtable}{lrlrrrl} \caption{"+ caption +"}\label{" + label + "}\\\\ \\toprule " + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n" + fields_formated + "\\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{7}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
 
-        latexStr = latexStr.replace("\\begin{longtable}{rrr}", "\\begin{longtable}{rrr} \caption{"+ caption +"}\label{" + label + "} \\toprule" + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n\\textbf{Instance} & \\textbf{n} & \\textbf{Result} \\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{3}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
+        latexStr = latexStr.replace("\\begin{longtable}{rrr}", " \\begin{longtable}{rrr} \caption{"+ caption +"}\label{" + label + "}\\\\ \\toprule" + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n\\textbf{Instance} & \\textbf{n} & \\textbf{Result} \\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{3}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
         return latexStr
