@@ -1,15 +1,18 @@
 from Utils.ReadInput import ReadFile
 from prettytable import PrettyTable
+from none import none
 import Utils.data_files as files
 import Utils.task_names as tasks_names
 from many import solve_many 
-import interruptingcow
 from nizp_resy_alternate import has_alternating_path
 from tqdm import tqdm
 import networkx as nx
 import time
 import pandas as pd
 import os
+
+
+from Some import someFlowPathRed
 
 class Tasks:
     """
@@ -22,8 +25,25 @@ class Tasks:
         self.path = path
         self.data = ReadFile(path)
 
-    def none(self):
-        pass
+    def none(self) -> int:
+
+        """
+        Find shortest path without any red nodes.
+
+        Return the length of a shortest s-t path internally avoiding Red nodes.
+        To be precise, let P be the set of s-t paths (v_1 ... v_l) such that v_i is not R if 1< i <l.
+        Let l(p) denote the length of a path p.
+        Return min(l(p), p in P).
+        If no such path exists, return -1.
+        Note that the edge st, if it exists, is an s-t path with l=2.
+        Thus, if st in E(G) then the answer is 1, no matter the colour of s or t.
+        In G_ex, the answer is 3 (because of the path 0, 1, 2, 3.)
+        """
+        # data = ReadInput()
+        graph = self.data.toGraph()
+        s_node = self.data.s
+        t_node = self.data.t
+        return none(graph, s_node, t_node)
 
     def alternate(self) -> bool:
         graph = self.data.toGraph().nxGraph
@@ -34,10 +54,13 @@ class Tasks:
             color_of_nodes[node] = node.is_red
         return has_alternating_path(graph, color_of_nodes, self.data.s, self.data.t)
 
-    def some(self):
-        pass
+    def some(self) -> tuple[bool, bool]:
+        graph = self.data.toGraph()
+        reds = [node for node in graph.nodes if node.is_red]
 
-    def many(self) -> int:
+        return someFlowPathRed(self.data, graph.nxGraph, self.data.s, self.data.t, reds)
+
+    def many(self) -> tuple[int, bool]:
         return solve_many(self.data)
 
     def few(self, draw : bool = False) -> int:
@@ -59,7 +82,8 @@ class Tasks:
             weightedGraph.draw()
 
         try:
-            return nx.dijkstra_path_length(G, self.data.s, self.data.t, weight='weight')
+            # If the source is red we add 1 as we dont count the source in the path
+            return nx.dijkstra_path_length(G, self.data.s, self.data.t, weight='weight') + self.data.s.is_red
         except (nx.NodeNotFound,  nx.NetworkXNoPath):
             return -1
 
@@ -106,30 +130,27 @@ class RunTask:
             tasks = Tasks(filename)
             num_nodes = tasks.data.num_nodes
 
-            try:
-                # This will interrupt the task if it takes more than self.min_before_interrupt minutes
-                with interruptingcow.timeout(60 * self.min_before_interrupt, exception=RuntimeError):
-                    result = None
-                    if self.task == tasks_names.Task_None:
-                        result = tasks.none()
-                    elif self.task == tasks_names.Task_Alternate:
-                        result = tasks.alternate()
-                    elif self.task == tasks_names.Task_Some:
-                        result = tasks.some()
-                    elif self.task == tasks_names.Task_Many:
-                        result = tasks.many()
-                    elif self.task == tasks_names.Task_Few:
-                        result = tasks.few()
-                    else:
-                        raise Exception("Task not found")
-            except RuntimeError:
-                result = "Timeout"
+            result = None
+            np_hard = None
+            if self.task == tasks_names.Task_None:
+                result = tasks.none()
+            elif self.task == tasks_names.Task_Alternate:
+                result = tasks.alternate()
+            elif self.task == tasks_names.Task_Some:
+                result, np_hard = tasks.some()
+            elif self.task == tasks_names.Task_Many:
+                result, np_hard = tasks.many()
+            elif self.task == tasks_names.Task_Few:
+                result = tasks.few()
+            else:
+                raise Exception("Task not found")
 
 
-            results.append((filename, num_nodes, result, time.time() - start_time))
+
+            results.append((filename, num_nodes, result, time.time() - start_time, np_hard))
 
         # create df
-        df = pd.DataFrame(results, columns=["filename", "num_nodes", "result", "execution_time"])
+        df = pd.DataFrame(results, columns=["filename", "num_nodes", "result", "execution_time", "np_hard"])
 
         # create folder if not exists
         if not os.path.exists("results"):
@@ -185,7 +206,8 @@ class WriteOutput:
                 self.data[f"{task}-Num nodes"] = 0
 
         self.create_output()   
-        self.write_output()     
+        self.write_output()  
+        self.write_output_latex()   
 
     def create_output(self) -> None:
 
@@ -221,6 +243,9 @@ class WriteOutput:
         self.table.align = "r"
         self.table.field_names = ["Instance name", "# nodes", "Result_A", "Result_F", "Result_M", "Result_N", "Result_S"]
         self.table.align["Instance name"] = "l"
+        self.table.align["Result_A"] = "l"
+        self.table.align["Result_S"] = "l"
+
 
         for filename in self.data[self.tasks_to_run[0]].keys():
             # get number of nodes from the first task that is run
@@ -230,7 +255,7 @@ class WriteOutput:
             else:
                 num_nodes = 0
 
-            self.table.add_row([filename, num_nodes, self.data[self.tasks_to_run[0]][filename], self.data[self.tasks_to_run[1]][filename], self.data[self.tasks_to_run[2]][filename], self.data[self.tasks_to_run[3]][filename], self.data[self.tasks_to_run[4]][filename]])
+            self.table.add_row([filename.replace("data/", "").replace(".txt", ""), num_nodes, self.data[self.tasks_to_run[0]][filename], self.data[self.tasks_to_run[1]][filename], self.data[self.tasks_to_run[2]][filename], self.data[self.tasks_to_run[3]][filename], self.data[self.tasks_to_run[4]][filename]])
 
     def write_output(self) -> None:
         with open('results_output.txt', 'w') as f:
@@ -238,3 +263,34 @@ class WriteOutput:
             f.write(str(self.summaryTable))
             f.write("\nResults:\n")
             f.write(str(self.table))
+
+    def write_output_latex(self) -> None:
+        with open('results_output.tex', 'w') as f:
+            f.write("\section{Results summary}\n")
+            summaryTableLatex = self.format_table_latex(self.summaryTable, "Summary of results", "table:results_summary")
+            f.write(summaryTableLatex)
+            f.write("\n")
+            f.write("\n")
+            f.write("\section{Results}\n")
+            tableLatex = self.format_table_latex(self.table, "Results from all problems", "table:results")
+            f.write(tableLatex)
+
+    def format_table_latex(self, table: PrettyTable, caption: str, label: str) -> str:
+        
+        fields = table.field_names
+
+        latexStr = table.get_latex_string(header=False)
+        # replace tabular with longtable
+        latexStr = latexStr.replace("tabular", "longtable")
+        # add caption to second line
+        latexStr = latexStr.replace("\\end{longtable}", "\caption{"+ caption +"}\label{" + label + "}\n\end{longtable}")
+
+
+        fields_formated = [f"& \\textbf{{{field}}}" for field in fields]
+        fields_formated = "".join(fields_formated).replace("&", "", 1).replace("Result_", "").replace("#", "nr.")
+
+
+        latexStr = latexStr.replace("\\begin{longtable}{lrlrrrl}", "\\begin{longtable}{lrlrrrl}\\toprule" + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n" + fields_formated + "\\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{7}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
+
+        latexStr = latexStr.replace("\\begin{longtable}{rrr}", "\\begin{longtable}{rrr}\\toprule" + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n\\textbf{Instance} & \\textbf{n} & \\textbf{Result} \\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{3}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
+        return latexStr

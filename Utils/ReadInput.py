@@ -139,7 +139,7 @@ class ReadFile(BaseRead):
                 self.edges.append(edge)
                 # Append to tuple list
                 self.edgeTupleList.append(edge.toTuple())
-
+        
             self.is_directed = edge.is_directed
     
     def __str__(self) -> str:
@@ -209,7 +209,7 @@ class ReadInput(BaseRead):
             self.edges.append(edge)
             # Append to tuple list
             self.edgeTupleList.append(edge.toTuple())
-
+        
         self.is_directed = edge.is_directed
         
     def __str__(self) -> str:

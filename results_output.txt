@@ -2,164 +2,164 @@ Summary:
 +-------------+--------------------------+------------------------+
 | Total tests |     Total Execution Time | Average Execution Time |
 +-------------+--------------------------+------------------------+
-|         154 | 13 minutes 49.91 seconds |           5.39 seconds |
+|         154 | 120 minutes 4.43 seconds |          46.78 seconds |
 +-------------+--------------------------+------------------------+
 Results:
-+---------------------------+---------+----------+----------+----------+----------+----------+
-| Instance name             | # nodes | Result_A | Result_F | Result_M | Result_N | Result_S |
-+---------------------------+---------+----------+----------+----------+----------+----------+
-| data/bht.txt              |    5757 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/common-1-100.txt     |     100 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-1-1000.txt    |    1000 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-1-1500.txt    |    1500 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-1-20.txt      |      20 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-1-2000.txt    |    2000 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-1-250.txt     |     250 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-1-2500.txt    |    2500 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-1-3000.txt    |    3000 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-1-3500.txt    |    3500 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-1-4000.txt    |    4000 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-1-4500.txt    |    4500 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-1-50.txt      |      50 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-1-500.txt     |     500 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-1-5000.txt    |    5000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/common-1-5757.txt    |    5757 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-2-100.txt     |     100 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-2-1000.txt    |    1000 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-2-1500.txt    |    1500 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-2-20.txt      |      20 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-2-2000.txt    |    2000 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-2-250.txt     |     250 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-2-2500.txt    |    2500 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-2-3000.txt    |    3000 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-2-3500.txt    |    3500 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-2-4000.txt    |    4000 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-2-4500.txt    |    4500 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-2-50.txt      |      50 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/common-2-500.txt     |     500 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-2-5000.txt    |    5000 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/common-2-5757.txt    |    5757 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/dodecahedron.txt     |      20 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/gnm-1000-1500-0.txt  |    1000 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/gnm-1000-1500-1.txt  |    1000 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/gnm-1000-2000-0.txt  |    1000 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/gnm-1000-2000-1.txt  |    1000 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/gnm-10-15-0.txt      |      10 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/gnm-10-15-1.txt      |      10 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/gnm-10-20-0.txt      |      10 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/gnm-10-20-1.txt      |      10 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/gnm-2000-3000-0.txt  |    2000 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/gnm-2000-3000-1.txt  |    2000 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/gnm-2000-4000-0.txt  |    2000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/gnm-2000-4000-1.txt  |    2000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/gnm-3000-4500-0.txt  |    3000 |  Not run |        4 |  Not run |  Not run |  Not run |
-| data/gnm-3000-4500-1.txt  |    3000 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/gnm-3000-6000-0.txt  |    3000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/gnm-3000-6000-1.txt  |    3000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/gnm-4000-6000-0.txt  |    4000 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/gnm-4000-6000-1.txt  |    4000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/gnm-4000-8000-0.txt  |    4000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/gnm-4000-8000-1.txt  |    4000 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/gnm-5000-10000-0.txt |    5000 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/gnm-5000-10000-1.txt |    5000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/gnm-5000-7500-0.txt  |    5000 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/gnm-5000-7500-1.txt  |    5000 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/grid-10-0.txt        |     100 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/grid-10-1.txt        |     100 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/grid-10-2.txt        |     100 |  Not run |        3 |  Not run |  Not run |  Not run |
-| data/grid-25-0.txt        |     625 |  Not run |        7 |  Not run |  Not run |  Not run |
-| data/grid-25-1.txt        |     625 |  Not run |        7 |  Not run |  Not run |  Not run |
-| data/grid-25-2.txt        |     625 |  Not run |        7 |  Not run |  Not run |  Not run |
-| data/grid-50-0.txt        |    2500 |  Not run |        9 |  Not run |  Not run |  Not run |
-| data/grid-50-1.txt        |    2500 |  Not run |        9 |  Not run |  Not run |  Not run |
-| data/grid-50-2.txt        |    2500 |  Not run |        9 |  Not run |  Not run |  Not run |
-| data/grid-5-0.txt         |      25 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/grid-5-1.txt         |      25 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/grid-5-2.txt         |      25 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/G-ex.txt             |       8 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/increase-n100-1.txt  |     100 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/increase-n100-2.txt  |     100 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/increase-n100-3.txt  |     100 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/increase-n10-1.txt   |      10 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/increase-n10-2.txt   |      10 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/increase-n10-3.txt   |      10 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/increase-n20-1.txt   |      20 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/increase-n20-2.txt   |      20 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/increase-n20-3.txt   |      20 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/increase-n500-1.txt  |     500 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/increase-n500-2.txt  |     500 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/increase-n500-3.txt  |     500 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/increase-n50-1.txt   |      50 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/increase-n50-2.txt   |      50 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/increase-n50-3.txt   |      50 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/increase-n8-1.txt    |       8 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/increase-n8-2.txt    |       8 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/increase-n8-3.txt    |       8 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/P3.txt               |       3 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/rusty-1-17.txt       |      17 |  Not run |        4 |  Not run |  Not run |  Not run |
-| data/rusty-1-2000.txt     |    2000 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/rusty-1-2500.txt     |    2500 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/rusty-1-3000.txt     |    3000 |  Not run |        5 |  Not run |  Not run |  Not run |
-| data/rusty-1-3500.txt     |    3500 |  Not run |        5 |  Not run |  Not run |  Not run |
-| data/rusty-1-4000.txt     |    4000 |  Not run |        4 |  Not run |  Not run |  Not run |
-| data/rusty-1-4500.txt     |    4500 |  Not run |        3 |  Not run |  Not run |  Not run |
-| data/rusty-1-5000.txt     |    5000 |  Not run |        3 |  Not run |  Not run |  Not run |
-| data/rusty-1-5757.txt     |    5757 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/rusty-2-2000.txt     |    2000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/rusty-2-2500.txt     |    2500 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/rusty-2-3000.txt     |    3000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/rusty-2-3500.txt     |    3500 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/rusty-2-4000.txt     |    4000 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/rusty-2-4500.txt     |    4500 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/rusty-2-5000.txt     |    5000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/rusty-2-5757.txt     |    5757 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/ski-illustration.txt |      36 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/ski-level10-1.txt    |      79 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/ski-level10-2.txt    |      76 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/ski-level10-3.txt    |      77 |  Not run |        4 |  Not run |  Not run |  Not run |
-| data/ski-level20-1.txt    |     252 |  Not run |        3 |  Not run |  Not run |  Not run |
-| data/ski-level20-2.txt    |     253 |  Not run |        9 |  Not run |  Not run |  Not run |
-| data/ski-level20-3.txt    |     254 |  Not run |       -1 |  Not run |  Not run |  Not run |
-| data/ski-level3-1.txt     |      16 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/ski-level3-2.txt     |      14 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/ski-level3-3.txt     |      15 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/ski-level5-1.txt     |      29 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/ski-level5-2.txt     |      26 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/ski-level5-3.txt     |      27 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/smallworld-10-0.txt  |     100 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/smallworld-10-1.txt  |     100 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/smallworld-20-0.txt  |     400 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/smallworld-20-1.txt  |     400 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/smallworld-30-0.txt  |     900 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/smallworld-30-1.txt  |     900 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/smallworld-3-0.txt   |       9 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/smallworld-3-1.txt   |       9 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/smallworld-40-0.txt  |    1600 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/smallworld-40-1.txt  |    1600 |  Not run |        0 |  Not run |  Not run |  Not run |
-| data/smallworld-50-0.txt  |    2500 |  Not run |        2 |  Not run |  Not run |  Not run |
-| data/smallworld-50-1.txt  |    2500 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-n-1.txt         |       8 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-n-10.txt        |      80 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-n-100.txt       |     800 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-n-1000.txt      |    8000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-n-10000.txt     |   80000 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-n-2.txt         |      16 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-n-3.txt         |      24 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-n-4.txt         |      32 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-p-1.txt         |       8 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-p-10.txt        |      62 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-p-100.txt       |     602 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-p-1000.txt      |    6002 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-p-10000.txt     |   60002 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-p-2.txt         |      14 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-p-3.txt         |      20 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-p-4.txt         |      26 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-z-1.txt         |       8 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-z-10.txt        |      71 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-z-100.txt       |     701 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-z-1000.txt      |    7001 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-z-10000.txt     |   70001 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-z-2.txt         |      15 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-z-3.txt         |      22 |  Not run |        1 |  Not run |  Not run |  Not run |
-| data/wall-z-4.txt         |      29 |  Not run |        1 |  Not run |  Not run |  Not run |
-+---------------------------+---------+----------+----------+----------+----------+----------+
++------------------+---------+----------+----------+----------+----------+----------+
+| Instance name    | # nodes | Result_A | Result_F | Result_M | Result_N | Result_S |
++------------------+---------+----------+----------+----------+----------+----------+
+| bht              |    5757 | False    |        0 |  Timeout |        6 | False    |
+| common-1-100     |     100 | False    |       -1 |       -1 |       -1 | False    |
+| common-1-1000    |    1000 | False    |       -1 |       -1 |       -1 | False    |
+| common-1-1500    |    1500 | False    |       -1 |       -1 |       -1 | False    |
+| common-1-20      |      20 | False    |       -1 |       -1 |       -1 | False    |
+| common-1-2000    |    2000 | False    |       -1 |       -1 |       -1 | False    |
+| common-1-250     |     250 | False    |       -1 |       -1 |       -1 | False    |
+| common-1-2500    |    2500 | False    |        1 |  Timeout |        6 | False    |
+| common-1-3000    |    3000 | False    |        1 |  Timeout |        6 | False    |
+| common-1-3500    |    3500 | False    |        1 |  Timeout |        6 | False    |
+| common-1-4000    |    4000 | False    |        1 |  Timeout |        6 | False    |
+| common-1-4500    |    4500 | True     |        1 |  Timeout |        6 | False    |
+| common-1-50      |      50 | False    |       -1 |       -1 |       -1 | False    |
+| common-1-500     |     500 | False    |       -1 |       -1 |       -1 | False    |
+| common-1-5000    |    5000 | True     |        1 |  Timeout |        6 | False    |
+| common-1-5757    |    5757 | True     |        1 |  Timeout |        6 | False    |
+| common-2-100     |     100 | False    |       -1 |       -1 |       -1 | False    |
+| common-2-1000    |    1000 | True     |        1 |  Timeout |        4 | False    |
+| common-2-1500    |    1500 | True     |        1 |  Timeout |        4 | False    |
+| common-2-20      |      20 | False    |       -1 |       -1 |       -1 | False    |
+| common-2-2000    |    2000 | True     |        1 |  Timeout |        4 | False    |
+| common-2-250     |     250 | False    |       -1 |       -1 |       -1 | False    |
+| common-2-2500    |    2500 | True     |        1 |  Timeout |        4 | False    |
+| common-2-3000    |    3000 | True     |        1 |  Timeout |        4 | False    |
+| common-2-3500    |    3500 | True     |        1 |  Timeout |        4 | False    |
+| common-2-4000    |    4000 | True     |        1 |  Timeout |        4 | False    |
+| common-2-4500    |    4500 | True     |        1 |  Timeout |        4 | False    |
+| common-2-50      |      50 | False    |       -1 |       -1 |       -1 | False    |
+| common-2-500     |     500 | True     |        1 |  Timeout |        4 | False    |
+| common-2-5000    |    5000 | True     |        1 |  Timeout |        4 | False    |
+| common-2-5757    |    5757 | True     |        1 |  Timeout |        4 | False    |
+| dodecahedron     |      20 | True     |        2 |       20 |        1 | False    |
+| gnm-1000-1500-0  |    1000 | False    |        1 |  Timeout |       -1 | False    |
+| gnm-1000-1500-1  |    1000 | False    |        2 |  Timeout |       -1 | False    |
+| gnm-1000-2000-0  |    1000 | False    |        0 |  Timeout |        7 | False    |
+| gnm-1000-2000-1  |    1000 | False    |        2 |  Timeout |       -1 | False    |
+| gnm-10-15-0      |      10 | True     |        0 |        1 |        1 | False    |
+| gnm-10-15-1      |      10 | True     |        1 |        5 |        1 | False    |
+| gnm-10-20-0      |      10 | False    |        1 |        1 |        3 | False    |
+| gnm-10-20-1      |      10 | True     |        2 |        5 |        3 | False    |
+| gnm-2000-3000-0  |    2000 | False    |        0 |  Timeout |        8 | False    |
+| gnm-2000-3000-1  |    2000 | True     |        2 |  Timeout |       -1 | False    |
+| gnm-2000-4000-0  |    2000 | False    |        0 |  Timeout |        6 | False    |
+| gnm-2000-4000-1  |    2000 | False    |        0 |  Timeout |        5 | False    |
+| gnm-3000-4500-0  |    3000 | False    |        0 |  Timeout |       10 | False    |
+| gnm-3000-4500-1  |    3000 | False    |        2 |  Timeout |       -1 | False    |
+| gnm-3000-6000-0  |    3000 | False    |        0 |  Timeout |        6 | False    |
+| gnm-3000-6000-1  |    3000 | False    |        2 |  Timeout |        6 | False    |
+| gnm-4000-6000-0  |    4000 | False    |        0 |  Timeout |        7 | False    |
+| gnm-4000-6000-1  |    4000 | True     |        1 |  Timeout |       15 | False    |
+| gnm-4000-8000-0  |    4000 | False    |        0 |  Timeout |        5 | False    |
+| gnm-4000-8000-1  |    4000 | True     |        2 |  Timeout |        6 | False    |
+| gnm-5000-10000-0 |    5000 | False    |        2 |  Timeout |        5 | False    |
+| gnm-5000-10000-1 |    5000 | True     |        1 |  Timeout |        5 | False    |
+| gnm-5000-7500-0  |    5000 | False    |       -1 |       -1 |       -1 | False    |
+| gnm-5000-7500-1  |    5000 | False    |       -1 |       -1 |       -1 | False    |
+| grid-10-0        |     100 | True     |        0 |  Timeout |       49 | False    |
+| grid-10-1        |     100 | True     |        0 |  Timeout |       29 | False    |
+| grid-10-2        |     100 | True     |        2 |  Timeout |       -1 | False    |
+| grid-25-0        |     625 | True     |        0 |  Timeout |      324 | False    |
+| grid-25-1        |     625 | True     |        0 |  Timeout |      123 | False    |
+| grid-25-2        |     625 | True     |        5 |  Timeout |       -1 | False    |
+| grid-50-0        |    2500 | True     |        0 |  Timeout |     1249 | False    |
+| grid-50-1        |    2500 | True     |        0 |  Timeout |      521 | False    |
+| grid-50-2        |    2500 | True     |       11 |  Timeout |       -1 | False    |
+| grid-5-0         |      25 | True     |        0 |        8 |       14 | False    |
+| grid-5-1         |      25 | True     |        0 |        6 |        8 | False    |
+| grid-5-2         |      25 | True     |        1 |       10 |       -1 | False    |
+| G-ex             |       8 | True     |        0 |        2 |        3 | False    |
+| increase-n100-1  |     100 | False    |       -1 |        6 |       -1 | True     |
+| increase-n100-2  |     100 | True     |        2 |       13 |        1 | True     |
+| increase-n100-3  |     100 | False    |       -1 |        5 |       -1 | True     |
+| increase-n10-1   |      10 | True     |        1 |        2 |        1 | True     |
+| increase-n10-2   |      10 | True     |        2 |        3 |        1 | True     |
+| increase-n10-3   |      10 | False    |       -1 |        4 |       -1 | False    |
+| increase-n20-1   |      20 | False    |       -1 |        3 |       -1 | True     |
+| increase-n20-2   |      20 | True     |        1 |        5 |        1 | True     |
+| increase-n20-3   |      20 | False    |       -1 |       -1 |       -1 | False    |
+| increase-n500-1  |     500 | True     |        2 |       21 |        1 | True     |
+| increase-n500-2  |     500 | True     |        1 |       25 |        1 | True     |
+| increase-n500-3  |     500 | True     |        1 |       17 |        1 | True     |
+| increase-n50-1   |      50 | False    |       -1 |       -1 |       -1 | False    |
+| increase-n50-2   |      50 | True     |        1 |        7 |        1 | True     |
+| increase-n50-3   |      50 | True     |        1 |        6 |        1 | True     |
+| increase-n8-1    |       8 | True     |        1 |        2 |        1 | True     |
+| increase-n8-2    |       8 | True     |        1 |        1 |        1 | True     |
+| increase-n8-3    |       8 | True     |        0 |        1 |        1 | True     |
+| P3               |       3 | True     |        1 |        1 |       -1 | False    |
+| rusty-1-17       |      17 | False    |        0 |        1 |       10 | False    |
+| rusty-1-2000     |    2000 | False    |       -1 |       -1 |       -1 | False    |
+| rusty-1-2500     |    2500 | False    |       -1 |       -1 |       -1 | False    |
+| rusty-1-3000     |    3000 | False    |        0 |  Timeout |       14 | False    |
+| rusty-1-3500     |    3500 | False    |        0 |  Timeout |       14 | False    |
+| rusty-1-4000     |    4000 | False    |        0 |  Timeout |       13 | False    |
+| rusty-1-4500     |    4500 | False    |        0 |  Timeout |        7 | False    |
+| rusty-1-5000     |    5000 | False    |        0 |  Timeout |        7 | False    |
+| rusty-1-5757     |    5757 | False    |        0 |  Timeout |        7 | False    |
+| rusty-2-2000     |    2000 | False    |        0 |  Timeout |        5 | False    |
+| rusty-2-2500     |    2500 | False    |        0 |  Timeout |        4 | False    |
+| rusty-2-3000     |    3000 | False    |        0 |  Timeout |        4 | False    |
+| rusty-2-3500     |    3500 | False    |        0 |  Timeout |        4 | False    |
+| rusty-2-4000     |    4000 | False    |        0 |  Timeout |        4 | False    |
+| rusty-2-4500     |    4500 | False    |        0 |  Timeout |        4 | False    |
+| rusty-2-5000     |    5000 | False    |        0 |  Timeout |        4 | False    |
+| rusty-2-5757     |    5757 | False    |        0 |  Timeout |        4 | False    |
+| ski-illustration |      36 | False    |        0 |        1 |        8 | True     |
+| ski-level10-1    |      79 | False    |       -1 |        4 |       -1 | False    |
+| ski-level10-2    |      76 | False    |        1 |        4 |       -1 | True     |
+| ski-level10-3    |      77 | False    |        4 |        7 |       -1 | True     |
+| ski-level20-1    |     252 | False    |        3 |       10 |       -1 | True     |
+| ski-level20-2    |     253 | False    |        9 |       14 |       -1 | True     |
+| ski-level20-3    |     254 | False    |       -1 |        4 |       -1 | True     |
+| ski-level3-1     |      16 | True     |        1 |        3 |        5 | True     |
+| ski-level3-2     |      14 | False    |        0 |        2 |        5 | True     |
+| ski-level3-3     |      15 | False    |        0 |        1 |        5 | True     |
+| ski-level5-1     |      29 | False    |        1 |        3 |       -1 | True     |
+| ski-level5-2     |      26 | False    |        1 |        2 |       -1 | True     |
+| ski-level5-3     |      27 | False    |        0 |       -1 |        7 | False    |
+| smallworld-10-0  |     100 | False    |        0 |  Timeout |        6 | False    |
+| smallworld-10-1  |     100 | True     |        0 |  Timeout |        8 | False    |
+| smallworld-20-0  |     400 | False    |        0 |  Timeout |        8 | False    |
+| smallworld-20-1  |     400 | True     |        1 |  Timeout |       14 | False    |
+| smallworld-30-0  |     900 | False    |        0 |  Timeout |        9 | False    |
+| smallworld-30-1  |     900 | True     |        1 |  Timeout |       11 | False    |
+| smallworld-3-0   |       9 | False    |        1 |        3 |        4 | False    |
+| smallworld-3-1   |       9 | False    |        1 |        4 |        2 | False    |
+| smallworld-40-0  |    1600 | False    |        0 |  Timeout |        8 | False    |
+| smallworld-40-1  |    1600 | True     |        1 |  Timeout |       13 | False    |
+| smallworld-50-0  |    2500 | False    |        0 |  Timeout |        3 | False    |
+| smallworld-50-1  |    2500 | True     |        2 |  Timeout |       -1 | False    |
+| wall-n-1         |       8 | True     |        0 |        1 |        1 | False    |
+| wall-n-10        |      80 | True     |        0 |        0 |        1 | False    |
+| wall-n-100       |     800 | True     |        0 |  Timeout |        1 | False    |
+| wall-n-1000      |    8000 | True     |        0 |  Timeout |        1 | False    |
+| wall-n-10000     |   80000 | True     |        0 |  Timeout |        1 | False    |
+| wall-n-2         |      16 | True     |        0 |        0 |        1 | False    |
+| wall-n-3         |      24 | True     |        0 |        0 |        1 | False    |
+| wall-n-4         |      32 | True     |        0 |        0 |        1 | False    |
+| wall-p-1         |       8 | True     |        0 |        1 |        1 | False    |
+| wall-p-10        |      62 | True     |        0 |        1 |        1 | False    |
+| wall-p-100       |     602 | True     |        0 |  Timeout |        1 | False    |
+| wall-p-1000      |    6002 | True     |        0 |  Timeout |        1 | False    |
+| wall-p-10000     |   60002 | True     |        0 |  Timeout |        1 | False    |
+| wall-p-2         |      14 | True     |        0 |        1 |        1 | False    |
+| wall-p-3         |      20 | True     |        0 |        1 |        1 | False    |
+| wall-p-4         |      26 | True     |        0 |        1 |        1 | False    |
+| wall-z-1         |       8 | True     |        0 |        1 |        1 | False    |
+| wall-z-10        |      71 | True     |        0 |        0 |        1 | False    |
+| wall-z-100       |     701 | True     |        0 |  Timeout |        1 | False    |
+| wall-z-1000      |    7001 | True     |        0 |  Timeout |        1 | False    |
+| wall-z-10000     |   70001 | True     |        0 |  Timeout |        1 | False    |
+| wall-z-2         |      15 | True     |        0 |        0 |        1 | False    |
+| wall-z-3         |      22 | True     |        0 |        0 |        1 | False    |
+| wall-z-4         |      29 | True     |        0 |        0 |        1 | False    |
++------------------+---------+----------+----------+----------+----------+----------+
