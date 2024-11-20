@@ -39,20 +39,6 @@ def solve_many(i: BaseRead, verbose: bool = False) -> int:
             return sum(1 for node in path if node in red_nodes)
             
 
-<<<<<<< Updated upstream
-        # Case 2: Undirected graph with no red cycles -> Bellman-Ford
-        elif G.nxGraph.is_directed():
-            try:
-                print("Case 3: Directed graph and no red cycles. Using Bellman Ford")
-                print("--------------------------------------------------------------")
-                return bellman(G, source, sink, red_nodes=red_nodes) 
-            
-            except ValueError:
-                print('Negative cycle detected cannot perform Bellman-Ford')
-                pass 
-
-=======
->>>>>>> Stashed changes
         # Case 3: NP-hard, complete search
         else:
             print("Case 3: NP-hard case, have to do complete search")
