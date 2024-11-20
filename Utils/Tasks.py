@@ -1,6 +1,5 @@
 from Utils.ReadInput import ReadFile
 from prettytable import PrettyTable
-from prettytable.prettytable import HEADER
 from none import none
 import Utils.data_files as files
 import Utils.task_names as tasks_names
@@ -11,7 +10,6 @@ import networkx as nx
 import time
 import pandas as pd
 import os
-import re
 
 
 from Some import someFlowPathRed
