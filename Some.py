@@ -19,7 +19,7 @@ This becomes NP-hard for directed graphs, unless the first vertice is a red one,
 and there exists a path between it and the sink.
 '''
 
-def someFlowPathRed(readFile: BaseRead, ogGraph: nx.Graph, source:Node, sink: Node, reds:list[Node]) -> tuple[bool, bool]:
+def someFlowPathRed(readFile: BaseRead, ogGraph: nx.Graph, source:Node, sink: Node, reds:list[Node]):
   np_hard = False
   try: nx.has_path(ogGraph, source, sink)
   except nx.NodeNotFound:
@@ -41,7 +41,7 @@ def someFlowPathRed(readFile: BaseRead, ogGraph: nx.Graph, source:Node, sink: No
   elif nx.is_directed(ogGraph):
     print("NP-hard")
     np_hard = True
-    return False, np_hard
+    return "!?", np_hard
   
   # Otherwise, undirected
   else:
