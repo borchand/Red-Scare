@@ -2,42 +2,6 @@ from Utils.GraphComponents import Graph, Node
 from Utils.ReadInput import ReadInput, ReadFile, BaseRead
 import networkx as nx
 import interruptingcow
-from collections import defaultdict
-
-def get_weight(v: Node, red_nodes: list[Node]) -> int:
-    if v in red_nodes:
-        return -1 
-    else:
-        return 0 
-
-
-def bellman(G: Graph, start: Node, target: Node, red_nodes: list[Node])-> int:
-    '''
-    Components of this implementation is taken from https://www.geeksforgeeks.org/bellman-ford-algorithm-in-python/. 
-    '''
-    num_vertices = len(G.nxGraph.nodes)
-
-    distance = defaultdict(lambda: float('inf')) # initialise dict with inf values, unless added 
-    distance[start] = 0
-
-    for i in range(num_vertices - 1):
-        for u in G.nxGraph.nodes:            
-            for v in G.nxGraph.neighbors(u):
-                weight = get_weight(v, red_nodes= red_nodes)
-                if distance[u] != float('inf') and distance[u] + weight < distance[v]:
-                    distance[v] = distance[u] + weight
-
-    for u in G.nxGraph.nodes:
-        for v in G.nxGraph.neighbors(u):
-            weight = get_weight(v, red_nodes=red_nodes)
-            if distance[u] != float('inf') and distance[u] + weight < distance[v]:
-                raise ValueError
-
-    # Check if target is reachable
-    if distance[target] == float('inf'):
-        return -1
-    
-    return abs(distance[target])
 
 
 def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
@@ -52,8 +16,11 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
 
     np_hard = False
     try:
+        if not nx.has_path(G.nxGraph, source=source, target= sink):
+            return -1, False
+        
         # Case 1: Directed Acyclic Graph (DAG) -> Topological Sort
-        if nx.is_directed_acyclic_graph(G.nxGraph):
+        elif nx.is_directed_acyclic_graph(G.nxGraph):
             if verbose:
                 print("Case 1: Directed Acyclic Graph (DAG). Using topological sort to solve")
                 print("--------------------------------------------------------------")
@@ -78,23 +45,9 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
             path = nx.shortest_path(G.nxGraph, source=source, target=sink)
             return sum(1 for node in path if node in red_nodes), np_hard
             
-
-        # Case 2: Undirected graph with no red cycles -> Bellman-Ford
-        elif G.nxGraph.is_directed():
-            try:
-                if verbose:
-                    print("Case 3: Directed graph and no red cycles. Using Bellman Ford")
-                    print("--------------------------------------------------------------")
-                return bellman(G, source, sink, red_nodes=red_nodes), np_hard
-            
-            except ValueError:
-                if verbose:
-                    print('Negative cycle detected cannot perform Bellman-Ford')
-                pass 
-
         # Case 3: NP-hard, complete search
         if verbose:
-            print("Case 4: NP-hard case, have to do complete search")
+            print("Case 3: NP-hard case, have to do complete search")
             print("--------------------------------------------------------------")
         min_before_interrupt = 1
         np_hard = True
@@ -118,7 +71,7 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
 
 def main()-> None:
     i = ReadInput()
-    print(solve_many(i))
+    print(solve_many(i, verbose = True))
 
 if __name__ == "__main__":
     main()
