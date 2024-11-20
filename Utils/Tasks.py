@@ -144,6 +144,7 @@ class RunTask:
                 result = tasks.few()
             else:
                 raise Exception("Task not found")
+
             if np_hard is None:
                 np_hard = False
 
@@ -275,7 +276,7 @@ class WriteOutput:
             f.write("\n")
             f.write("\n")
             f.write("\section{Results}\n")
-            tableLatex = self.format_table_latex(self.table, "Results from all problems", "table:results")
+            tableLatex = self.format_table_latex(self.table, "Results from all problems. \\n \"Timeout\" - solving this instance takes more than 3 mins. \"?!\" - indicates NP hard case.", "table:results")
             f.write(tableLatex)
 
     def format_table_latex(self, table: PrettyTable, caption: str, label: str) -> str:
@@ -285,15 +286,12 @@ class WriteOutput:
         latexStr = table.get_latex_string(header=False)
         # replace tabular with longtable
         latexStr = latexStr.replace("tabular", "longtable")
-        # add caption to second line
-        latexStr = latexStr.replace("\\end{longtable}", "\caption{"+ caption +"}\label{" + label + "}\n\end{longtable}")
-
 
         fields_formated = [f"& \\textbf{{{field}}}" for field in fields]
         fields_formated = "".join(fields_formated).replace("&", "", 1).replace("Result_", "").replace("#", "\#")
 
 
-        latexStr = latexStr.replace("\\begin{longtable}{lrlrrrl}", "\\begin{longtable}{lrlrrrl}\\toprule" + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n" + fields_formated + "\\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{7}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
+        latexStr = latexStr.replace("\\begin{longtable}{lrlrrrl}", "\\begin{longtable}{lrlrrrl} \caption{"+ caption +"}\label{" + label + "} \\toprule " + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n" + fields_formated + "\\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{7}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
 
-        latexStr = latexStr.replace("\\begin{longtable}{rrr}", "\\begin{longtable}{rrr}\\toprule" + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n\\textbf{Instance} & \\textbf{n} & \\textbf{Result} \\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{3}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
+        latexStr = latexStr.replace("\\begin{longtable}{rrr}", "\\begin{longtable}{rrr} \caption{"+ caption +"}\label{" + label + "} \\toprule" + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n\\textbf{Instance} & \\textbf{n} & \\textbf{Result} \\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{3}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
         return latexStr
