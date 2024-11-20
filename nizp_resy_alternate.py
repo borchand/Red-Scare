@@ -20,7 +20,7 @@ def get_path(parent_dict, s, t, final_was_red):
     
     return list(reversed(path))
 
-
+# BFS with inspiration from: https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
 def has_alternating_path(graph, colour_of_nodes, s, t):
     # we check if s and t are even in the graph 
     if s not in graph.nodes() or t not in graph.nodes():
