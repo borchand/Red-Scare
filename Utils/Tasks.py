@@ -144,8 +144,8 @@ class RunTask:
                 result = tasks.few()
             else:
                 raise Exception("Task not found")
-
-
+            if np_hard is None:
+                np_hard = False
 
             results.append((filename, num_nodes, result, time.time() - start_time, np_hard))
 
@@ -193,8 +193,8 @@ class WriteOutput:
                 for _, row in df.iterrows():
                     self.data[task][row["filename"]] = str(row["result"])
 
-                    if row["np_hard"] != "nan" and row["np_hard"] == True:
-                        self.data[task][row["filename"]] += "(*)"
+                    if row["np_hard"]:
+                        self.data[task][row["filename"]] += " (?!)"
                     self.data[f"{task}-Num nodes"][row["filename"]] = row["num_nodes"]
 
                 self.data[f"{task}-Execution Time"] = df["execution_time"].sum()
