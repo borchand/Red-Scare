@@ -287,7 +287,7 @@ class WriteOutput:
 
 
         fields_formated = [f"& \\textbf{{{field}}}" for field in fields]
-        fields_formated = "".join(fields_formated).replace("&", "", 1).replace("Result_", "").replace("#", "nr.")
+        fields_formated = "".join(fields_formated).replace("&", "", 1).replace("Result_", "").replace("#", "\#")
 
 
         latexStr = latexStr.replace("\\begin{longtable}{lrlrrrl}", "\\begin{longtable}{lrlrrrl}\\toprule" + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n" + fields_formated + "\\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{7}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
