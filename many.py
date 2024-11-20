@@ -16,8 +16,12 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
 
     np_hard = False
     try:
+        if nx.has_path(G.nxGraph, source=source, target= sink):
+            return -1, False
+        
+        
         # Case 1: Directed Acyclic Graph (DAG) -> Topological Sort
-        if nx.is_directed_acyclic_graph(G.nxGraph):
+        elif nx.is_directed_acyclic_graph(G.nxGraph):
             if verbose:
                 print("Case 1: Directed Acyclic Graph (DAG). Using topological sort to solve")
                 print("--------------------------------------------------------------")
@@ -68,7 +72,7 @@ def solve_many(i: BaseRead, verbose: bool = False) -> tuple[int, bool]:
 
 def main()-> None:
     i = ReadInput()
-    print(solve_many(i))
+    print(solve_many(i, verbose = True))
 
 if __name__ == "__main__":
     main()
