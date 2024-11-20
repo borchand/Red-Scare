@@ -1,5 +1,6 @@
 from Utils.ReadInput import ReadFile
 from prettytable import PrettyTable
+from prettytable.prettytable import HEADER
 from none import none
 import Utils.data_files as files
 import Utils.task_names as tasks_names
@@ -10,6 +11,7 @@ import networkx as nx
 import time
 import pandas as pd
 import os
+import re
 
 
 from Some import someFlowPathRed
@@ -243,6 +245,9 @@ class WriteOutput:
         self.table.align = "r"
         self.table.field_names = ["Instance name", "# nodes", "Result_A", "Result_F", "Result_M", "Result_N", "Result_S"]
         self.table.align["Instance name"] = "l"
+        self.table.align["Result_A"] = "l"
+        self.table.align["Result_S"] = "l"
+
 
         for filename in self.data[self.tasks_to_run[0]].keys():
             # get number of nodes from the first task that is run
@@ -252,7 +257,7 @@ class WriteOutput:
             else:
                 num_nodes = 0
 
-            self.table.add_row([filename, num_nodes, self.data[self.tasks_to_run[0]][filename], self.data[self.tasks_to_run[1]][filename], self.data[self.tasks_to_run[2]][filename], self.data[self.tasks_to_run[3]][filename], self.data[self.tasks_to_run[4]][filename]])
+            self.table.add_row([filename.replace("data/", "").replace(".txt", ""), num_nodes, self.data[self.tasks_to_run[0]][filename], self.data[self.tasks_to_run[1]][filename], self.data[self.tasks_to_run[2]][filename], self.data[self.tasks_to_run[3]][filename], self.data[self.tasks_to_run[4]][filename]])
 
     def write_output(self) -> None:
         with open('results_output.txt', 'w') as f:
@@ -263,6 +268,31 @@ class WriteOutput:
 
     def write_output_latex(self) -> None:
         with open('results_output.tex', 'w') as f:
-            f.write(self.summaryTable.get_latex_string())
+            f.write("\section{Results summary}\n")
+            summaryTableLatex = self.format_table_latex(self.summaryTable, "Summary of results", "table:results_summary")
+            f.write(summaryTableLatex)
             f.write("\n")
-            f.write(self.table.get_latex_string())
+            f.write("\n")
+            f.write("\section{Results}\n")
+            tableLatex = self.format_table_latex(self.table, "Results from all problems", "table:results")
+            f.write(tableLatex)
+
+    def format_table_latex(self, table: PrettyTable, caption: str, label: str) -> str:
+        
+        fields = table.field_names
+
+        latexStr = table.get_latex_string(header=False)
+        # replace tabular with longtable
+        latexStr = latexStr.replace("tabular", "longtable")
+        # add caption to second line
+        latexStr = latexStr.replace("\\end{longtable}", "\caption{"+ caption +"}\label{" + label + "}\n\end{longtable}")
+
+
+        fields_formated = [f"& \\textbf{{{field}}}" for field in fields]
+        fields_formated = "".join(fields_formated).replace("&", "", 1).replace("Result_", "").replace("#", "nr.")
+
+
+        latexStr = latexStr.replace("\\begin{longtable}{lrlrrrl}", "\\begin{longtable}{lrlrrrl}\\toprule" + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n" + fields_formated + "\\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{7}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
+
+        latexStr = latexStr.replace("\\begin{longtable}{rrr}", "\\begin{longtable}{rrr}\\toprule" + fields_formated + "\\\\\n\\midrule\n\\endfirsthead\n\\toprule\n\\textbf{Instance} & \\textbf{n} & \\textbf{Result} \\\\\n\\midrule\n\\endhead\n\\midrule\n\\multicolumn{3}{r}{\\textit{Continued on next page}} \\\\\n\\midrule\n\\endfoot\n\\bottomrule\n\\endlastfoot")
+        return latexStr
