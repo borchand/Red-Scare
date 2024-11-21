@@ -276,7 +276,7 @@ class WriteOutput:
             f.write("\n")
             f.write("\n")
             f.write("\section{Results}\n")
-            tableLatex = self.format_table_latex(self.table, "Results from all problems. \\n \"Timeout\" - solving this instance takes more than 3 mins. \"?!\" - indicates NP hard case.", "table:results")
+            tableLatex = self.format_table_latex(self.table, "Results for all problem instances. \"Timeout\" denotes instances where solving takes more than 3 minutes. \"?!\" denotes instances classified as NP-hard.", "table:results")
             f.write(tableLatex)
 
     def format_table_latex(self, table: PrettyTable, caption: str, label: str) -> str:
