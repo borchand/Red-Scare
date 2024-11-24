@@ -245,7 +245,7 @@ class WriteOutput:
 
         self.table = PrettyTable()
         self.table.align = "r"
-        self.table.field_names = ["Instance name", "# nodes", "Result_A", "Result_F", "Result_M", "Result_N", "Result_S"]
+        self.table.field_names = ["Instance name", "# vertices", "Result_A", "Result_F", "Result_M", "Result_N", "Result_S"]
         self.table.align["Instance name"] = "l"
         self.table.align["Result_A"] = "l"
         self.table.align["Result_S"] = "l"
