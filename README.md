@@ -1,7 +1,7 @@
 # Red-Scare
+We are using `interruptingcow` which might not work on a windows machine.
 
 ## Python version >=3.9
-
 ## Runing tests and creating output
 The `main.py` file is used to run the tests and create the output files. The output file are saved as `results_output.txt`. The result of a task is saved in the `results`folder as csv.
 
